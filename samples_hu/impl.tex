@@ -1,29 +1,42 @@
+
+
 \chapter{Fejlesztői dokumentáció}
 \label{ch:impl}
 
 
 \section{Megoldandó feladat}
-\section{Használt eszközök}
+\section{Használt eszközök és környezetek}
+\subsection{Erlang nyelv}
 \subsection{RefactorErl}
-\subsection{Az Erlang nyelv}
 \subsection{Erlang LS}
-\subsection{A TypeScirpt nyelv}
+\subsection{TypeScirpt}
 \subsection{Visual Studioc Code API}
+\subsection{WebSocket}
+\subsection{Remote Procedure Calls}
 
-\section{Komponensek viszonya egymáshoz}
-\todo{Erlang LS}
+\section{Komponensek}
+\subsection{Erlang LS-beli illesztő modul}
+\subsubsection{Bevezetés}
+\subsubsection{Modul felépítés}
+\subsubsection{Kommunikáció a többi komponenssel}
 
-RefactorErl
+\subsection{RefactorErl-beli LS modul}
+\subsubsection{Bevezetés}
+\subsubsection{Modul felépítés}
+\subsubsection{Kommunikáció a többi komponenssel}
 
-Visualiser
+\subsection{RefactorErl-beli WebSocket modul}
+\subsubsection{Bevezetés}
+\subsubsection{Modul felépítés}
+\subsubsection{Kommunikáció a többi komponenssel}
 
-RPC
 
-Websocket
+\subsection{RefactorErl Visualiser kiegészítő}
+\subsubsection{Bevezetés}
+\subsubsection{Kiegészítő felépítés}
+\subsubsection{Kommunikáció a többi komponenssel}
 
-\section{LSP fölött megvalósított funkcionalitások}
-\section{Bővítménybe ágyazott funkcionalitások}
-
+\section{Komponensek telepítőinek előállítása (?)}
 
 
 
@@ -41,48 +54,8 @@ Websocket
 \section{Forráskódok}
 
 
-\lstset{caption={Hello World in C++}, label=src:cpp}
+\lstset{caption={Hello World in Erlang}, label=src:erlang}
 \begin{lstlisting}[language={C++}]
-#include <stdio>
-
-int main() 
-{
-	int c;
-	std::cout << "Hello World!" << std::endl;
-
-	std::cout << "Press any key to exit." << std::endl;
-	std::cin >> c;
-	
-	return 0;
-}
+hello() -> io:format("Hello World!").
 \end{lstlisting}
 
-
-\subsection{Algoritmusok}
-
-Az \ref{alg:ibb}.~algoritmus egy általános elágazás és korlátozás algoritmust (\emph{Branch and Bound algorithm}) mutat be. A \ref{step:selrule}.~lépésben egy megfelelő kiválasztási szabályt kell alkalmazni.
-Példa forrása: \href{https://www.inf.u-szeged.hu/actacybernetica/}{Acta Cybernetica (ez egy hiperlink)}.
-
-\begin{algorithm}[H]
-\caption{A general interval B\&B algorithm}
-\label{alg:ibb}
-\textbf{\underline{Funct}} IBB($S,f$)
-\begin{algorithmic}[1] % sorszámok megjelenítése minden n. sor előtt, most n = 1
-\State Set the working list ${\cal L}_W$ := $\{S\}$ and the final list ${\cal L}_Q$ := $\{\}$
-\While{( ${\cal L}_W \neq \emptyset$ )} \label{alg:igoend}
-	\State Select an interval $X$ from ${\cal L}_W$ \label{step:selrule}\Comment{Selection rule}
-	\State Compute $lbf(X)$ \Comment{Bounding rule}
-	\If{$X$ cannot be eliminated} \Comment{Elimination rule}
-		\State Divide $X$ into $X^j,\ j=1,\dots, p$, subintervals   \Comment{Division rule}
-		\For{$j=1,\ldots,p$}
-			\If{$X^j$ satisfies the termination criterion} \Comment{Termination rule}
-				\State Store $X^j$ in ${\cal L}_W$
-			\Else
-				\State Store $X^j$ in ${\cal L}_W$
-			\EndIf
-		\EndFor
-	\EndIf
-\EndWhile
-\State \textbf{return} ${\cal L}_Q$
-\end{algorithmic}
-\end{algorithm}
