@@ -543,7 +543,7 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
             \item Lebegő információ: ez az információ lesz megjelenítve a Visualiserben, amikor a felhasználó a kurzorát a kijelölés fölé viszi.
         \end{enumerate}
         \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően
-        \item \textbf{Leírás:} A pozició skalárissá alakítása után a \lstinline{refusr_sq:run/3} segítségével lefuttatja a lekérdezést, majd becsomagolja TODO TODO TODO becsomagolja egy olyan objektumba, amiről itt meg ott na de hol olvashatunk ÉDS és elkuldi a referl vsc websocket:send2  -vel \todo{todo}
+        \item \textbf{Leírás:} A pozició skalárissá alakítása után a \lstinline{refusr_sq:run/3} segítségével lefuttatja a lekérdezést, majd becsomagolja becsomagolja egy a \ref{structQueryRes} forrás részleten is látható objektumba, majd elküldi a \lstinline{referl_vsc_websocket:send2}  -vel
     \end{itemize}
     
 
@@ -552,8 +552,9 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
     \begin{itemize}
         \item \textbf{Bemenet:} rendre modul, illetve függvény neve, majd aritása
         \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően
-        \item \textbf{Leírás:} Előállítja a lekérdezést, majd \lstinline{refusr_sq:run/3} segítségével lefuttatja. \todo{majd becsomagolja és elküldi}. A lekérdezés az alábbi szerkezetű \\ 
-        \lstinline{"mods[name=<modul\_neve>].funs[name=<függvény\_neve> and arity=<aritása>].refs"}
+        \item \textbf{Leírás:} Előállítja a lekérdezést, majd \lstinline{refusr_sq:run/3} segítségével lefuttatja, majd becsomagolja becsomagolja egy a \ref{structQueryRes} forrás részleten is látható objektumba, majd elküldi a \lstinline{referl_vsc_websocket:send2} -vel. \\
+        A lekérdezés az alábbi szerkezetű \\ 
+        \lstinline{"mods[name=<modul_neve>].funs[name=<fuggveny_neve> and arity=<aritasa>].refs"}
     \end{itemize}
     
     
@@ -586,7 +587,10 @@ OptionsForWS = {struct, [
 
 \subsubsection{Kommunikáció a többi komponenssel}
 
-\todo{TOOD kommunikáció a többi komponenssel}
+A RefactorErl-ben elhelyezett LS interfész modul főképpen az Erlang LS-el kommunikál, azonban hív olyan eljárásokat, amik Web Socketen keresztül a Visualiser komponenssel is kommunikál, így összességében mindkét komponenssel kommunikál.
+
+Gondoljunk csak a diagnosztikákra: ebben az esetben kizárólagosan az ELS-el kommunikál, míg kódakciók esetében mind az Eralng LS, mind a Visualiser komponenssel kommunikál.
+
 
 
 \subsection{RefactorErl-beli WebSocket komponens}
@@ -668,7 +672,7 @@ Ez a modul elindítja és leállítja a VSC alkalmazást. Az indításhoz megadh
     \item \lstinline{yaws_port}: A port, amin keresztül Web Socket kommunikálni fog. Ez alapértelmezetten \lstinline{8002} és a Visualiser bővítmény csak ezen a porton képes kommunikálni
     \item \lstinline{yaws_listen}: Az IP\footnote{Internet Protocoll} cím, amin keresztül Web Socket kommunikálni fog. Ez alapértelmezetten \lstinline{127.0.0.1} és a Visualiser bővítmény csak ezen a címen képes kommunikálni
     \item \lstinline{yaws_path}: Az a útvonal, ahonnan a Yaws webszervert indítani szeretnénk. 
-\todo{bef}
+
 \end{itemize}
 
 \subsubsection{\lstinline{referl_vsc_sup} modul}
@@ -764,7 +768,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
     \item \textbf{Bemenet:} Első paraméter egy esemény azanosító, a második pedig egy olyan adat, amit a \lstinline{json2:encode} függvénye JSON szöveggé tud alakítani
     \item \textbf{Kimenet:} Egy olyan pár, melynek első tagja a \lstinline{text} atom, illetve a második tagja pedig egy JSON szerű szöveg. 
     \item \textbf{Leírás:} A megadott esemény azonosítóval előállítja azt az adatszerkezetet, amivel az adatot áttudjuk küldeni. Ez lesz a pár második tagja. ez az adatszerkezet valahogy így néz ki:
-\lstset{caption=Esemény alapú küldés szerkezete, label=src:erlang} \label{structQueryRes}
+\lstset{caption=Esemény alapú küldés szerkezete, label=src:erlang} \label{structQueryRes2}
 \begin{lstlisting}[language={erlang}]
 {struct, [
     {"event", Event},       % esemeny azonosito
@@ -779,7 +783,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
     \item \textbf{Kimenet:} egy olyan pár, melynek első tagja a \lstinline{text} atom, illetve a második tagja pedig egy JSON szerű szöveg, vagy maga az \lstinline{ok} vagy \lstinline{error} atomok
     \item \textbf{Leírás:} Amennyiben a bemenetnél \lstinline{undefined} értéket kapunk, úgy nem, lehet visszaküldési azonosítóval elküldeni, ekkor a hibát szétküldjük az ismert Socketeknek. Ha ez sikerrel zárult, akkor \lstinline{ok} atom, ha nem akkor \lstinline{error} atomot kapunk vissza. \\ \\ Ha visszaküldési azonosítót kapunk, akkor előállítja azt az adatszerkezetet amivel az adatot áttudjuk küldeni. Ez lesz a pár második tagja, míg az első a \lstinline{text} atom lesz. Ez az adatszerkezet valahogy így néz ki:
 
-\lstset{caption=Visszaküldési azonosítós küldés szerkezete, label=src:erlang} \label{structQueryRes}
+\lstset{caption=Visszaküldési azonosítós küldés szerkezete, label=src:erlang} \label{structQueryRes3}
 \begin{lstlisting}[language={erlang}]
 {struct, [
     {"callbackId", Event},      % visszakuldesi azonosito
@@ -1241,11 +1245,13 @@ A következőkben a kommunikáció legfontosabb elemével fogunk megismerkedni, 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\linewidth]{images/wsDiagram.png}
-  \caption{Komponensek viszonya egymáshóz}
+  \caption{WebSocketHandler osztálydiagrammja}
   \label{fig:wsDiagram}
 \end{figure}
 
 Az osztály úgynevezett \textit{singleton} vagyis egyke tervezési mintát követ, tehát mindig csak egy példány lérezhet belőle. Ezt úgy lehet elérni, hogy a konstruktorját privát láthatóságúra állítjuk, így a példányosítása csakis osztályon belül lehetséges. A külső elérést a \lstinline{getInstance} metódus biztosítja, mely amennyiben már van egy példány visszadaj azt, amennyiben nincs létrehoz egyet.
+
+Az osztály, s így a teljes bővítmény függ a \textit{jock} álltal fejlesztett SVG bővítménytől. \footnote{\url{https://marketplace.visualstudio.com/items?itemName=jock.svg}} ezen bővítmény segítségével jeleníti meg az SVG gráfokat.
 
 \noindent Vegyük sorra az osztály publikus metódusait:
 
@@ -1299,28 +1305,214 @@ Ez a típus reprezentál egy nézeti állapotot azálltal, hogy tárolja a gráf
 \\
 
 Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
-\todo{bef}
+
+\noindent \textbf{Amennyiben SVG kiemenetet kaptunk:}
+\begin{itemize}
+    \item \lstinline{status: "ok"}: a lekérdezés sikerességét indikálja
+    \item \lstinline{type: "svg"}: a gráf típusát adja meg
+    \item \lstinline{path: PathLike} egy elérési útvonalat ad meg az SVG fájlhoz
+\end{itemize}
+
+\noindent \textbf{Amennyiben szöveges kiemenetet kaptunk:}
+\begin{itemize}
+    \item \lstinline{status: "ok"}: a lekérdezés sikerességét indikálja
+    \item \lstinline{type: "textual"}: a gráf típusát adja meg
+    \item \lstinline{textualGraph: TextualGraph[]} a szöveges gráf elemeit tartalmazó lista
+\end{itemize}
+
+
+\noindent \textbf{Amennyiben hibát kaptunk:}
+\begin{itemize}
+    \item \lstinline{status: "failed"}: a lekérdezés sikerességét indikálja
+    \item \lstinline{data: string}: a hiba okát, leírását tartalmazza
+\end{itemize}
+
+
+\\
+\vspace{14pt}
+\textbf{DependencyGraphView}
+\\
+
+Ez az osztály felelős a függőségi gráfok megjelenítésére szolgáló panel kezelésére. Ezen a panel a Visual Studio Code Webview API-ját használja. Az osztály a szerkesztő API dokumentációjában lévő leírás alapján készült \cite{webViewGuide} és az ottani kezdő projekten alapszik. \footnote{\url{https://github.com/microsoft/vscode-extension-samples/blob/main/webview-sample/README.md}}. 
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/diagramDepg.png}
+  \caption{DependencyGraphView osztálydiagrammja}
+  \label{fig:diagramDepg}
+\end{figure}
+
+A \ref{fig:diagramDepg} ábrán láthatjuk az osztály felépítését, a függvények paraméterezését. A fontosabb metódusokról ejtsünk néhány szót.
 
 \begin{itemize}
-    \item \lstinline{graph: GraphState | undefined}: a gráf állapota
-    
-    \item \lstinline{formState: DependencyGraphState | undefined: az űrlap állapota
-
+    \item \lstinline{postMessage}: ezzel a fügvénnyel tudunk adatot küldeni a Web View-ba.
+    \item \lstinline{getHtmlForWebView}: Ennek a függvénynek a kimenete adja meg a HTML kódját a WebView-nak.
 \end{itemize}
-\todo{??}
+
+
+\subsubsection{\lstinline{depgraph.d.ts}}
+
+A következő fájl egy érdekes darab. Ez egy típus definíciós fájl, ami külön ki lett emelve. Erre azért volt szükség, hogy az izoláltan futó Web View és kiegészítő fejlesztés folyamán azonos típus definíciókkal tudjun készülni, így elősegítve a típushelyes fejlesztést.
+
+\\
+\vspace{14pt}
+\textbf{TextualGraph}
+\begin{itemize}
+    \item \lstinline{dependant: string}: az a gráf egység ami a függő. Ez lesz a nyíl baloldalán
+    \item \lstinline{dependency: string}: az egység függőségei. Ez lesz a nyíl jobb oldalán.
+\end{itemize}
+
+
+\\
+\vspace{14pt}
+\textbf{PathLike} 
+\\
+Lényegében egy szinoníma a \lstinline{string}-re
+
+
+\\
+\vspace{14pt}
+\textbf{GraphResponse}
+\\
+
+Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
+
+\noindent Amennyiben SVG kiemenetet kaptunk:
+\begin{itemize}
+    \item \lstinline{status: "ok"}: a lekérdezés sikerességét indikálja
+    \item \lstinline{type: "svg"}: a gráf típusát adja meg
+    \item \lstinline{data: PathLike} egy elérési útvonalat ad meg az SVG fájlhoz
+\end{itemize}
+
+\noindent Amennyiben szöveges kiemenetet kaptunk:
+\begin{itemize}
+    \item \lstinline{status: "ok"}: a lekérdezés sikerességét indikálja
+    \item \lstinline{type: "textual"}: a gráf típusát adja meg
+    \item \lstinline{data: TextualGraph[]} a szöveges gráf elemeit tartalmazó lista
+\end{itemize}
+
+
+\noindent Amennyiben hibát kaptunk:
+\begin{itemize}
+    \item \lstinline{status: "failed"}: a lekérdezés sikerességét indikálja
+    \item \lstinline{data: string}: a hiba okát, leírását tartalmazza
+\end{itemize}
+
+
+\\
+\vspace{14pt}
+\textbf{DependencyGraphState} 
+\\ Az alábbi adattagokat definálja. Tartalmuk a RefactorErl Wiki oldalán pontosabban le vannak írva. \cite{referlWikiDependency}
+\begin{itemize}
+    \item \lstinline{type: string}: a gráf típusa
+    \item \lstinline{level: string}: a gráf szintje
+    \item \lstinline{starting_nodes: string[]}: kezdő pontok
+    \item \lstinline{exclude_otp: boolean}: OTP kizárása
+    \item \lstinline{exclude: string[]}: kizárt pontok
+    \item \lstinline{exclude_lib: string[]}: kizárt könyvtárak
+    \item \lstinline{connection: string[]}: kapcsolódása pontok
+    \item \lstinline{output_type: string}: kimenet típusa
+    
+\end{itemize}
 
 
 
-\subsubsection{\lstinline{XX.d.ts}}
+
+\\
+\vspace{14pt}
+\textbf{ExtensionMessageParam}
+
+Olyan adattípus ami akkor használatos, amikor a bővítmény küldd üzenetet a WebView-nak
+
+\begin{itemize}
+    \item \lstinline{command: ExtensionMessageCommands}:
+    \item \lstinline{graph?: TextualGraph[]}:
+    \item \lstinline{error?: string}:
+    \item \lstinline{data?: any}:
+    \item \lstinline{path?: PathLike}:
+\end{itemize}
 
 
-\todo{??}
+
+
+\\
+\vspace{14pt}
+\textbf{ExtensionMessageCommands}
+Ez a típus az alábbi értékek közül vehet fel egyet: \lstinline{ 'updateResponse' | 'printTextualGraph' | 'textualGraphError' | 'setForm' | 'svgGraphPath'}
+
+
+
+\\
+\vspace{14pt}
+\textbf{WebViewMessageCommands}
+Ez a típus az alábbi értékek közül vehet fel egyet: \lstinline{ 'dependencyGraph' | 'formState' | 'openSvg'}
+
+
+
+
+\\
+\vspace{14pt}
+\textbf{WebViewMessageParam}
+Ez a típus üzenet paramétere, amennyiben a Web View küldi el az üzenetet. Több féle szerkezetű lehet:
+
+\noindent Amennyiben az űrlap állapotát küldi:
+\begin{itemize}
+    \item \lstinline{command: 'formState'}: a parancs típusa
+    \item \lstinline{params: DependencyGraphState}: a parancs paramétere
+\end{itemize}
+
+\noindent Amennyiben az gráf generálásához szükséges paramétereket küldi:
+\begin{itemize}
+    \item \lstinline{command: 'dependencyGraph'}: a parancs típusa
+    \item \lstinline{params: DependencyGraphState}: a parancs paramétere
+\end{itemize}
+
+
+\noindent Arra küldd kérdést, hogy a bővítmény nyisson meg egy SVG fájlt:
+\begin{itemize}
+    \item \lstinline{command: 'openSvg'}: a parancs típusa
+    \item \lstinline{params: PathLike}: a parancs paramétere
+\end{itemize}
+
+
+
+\subsubsection{\lstinline{webviewMain.ts}}
+
+Alapvetően a Web View-nak egy natív Java Scirpt fájlt lehet megadni, mint szkript fájl, azonban azt a  döntést hoztam, hogy a fejlesztése történjen Type Script-ben, így kitudom használni a típus ellenőrzéseket és közös típus interfészt tudok használni a bővítmény többi részével. Ahhoz, hogy ez műkdöjön természetesen elő kellett állítani a Java Script állományt, így a fordítási ciklusba beillesztettem egy komponens fordítást, így ennek fordított verziója is hiánytalanul előáll, és használható.
+
+A fájl lényegében segéd függvényeket tartalmaz. Vegyük ezeket sorra:
+
+\begin{itemize}
+    \item \lstinline{semicolonSeparatedToArray(value: string)}: paraméteréül kapott pontosvessző álltal szeparált szöveget felbontja.
+    
+    \item \lstinline{postMessage(param: WebViewMessageParam)}: elküld egy üzenetet a bővítmény felé
+    
+    \item \lstinline{sendGraphRequest(event: MouseEvent)}: A \textit{Generate} feliratú gomb eseménykezelője. Ezen függvény alakítja át a paramétereket olyan formára, hogy a RefactorErl számára elküldhető legyen.
+    
+    \item \lstinline{handleExtensionMessages(event: MessageEvent)}: A bővítmény felől érkező üzeneteket kezeli le.
+    
+    \item \lstinline{clearGraph(event: MouseEvent)}: A gráfot letörli a fő munkafelületről
+    
+    \item \lstinline{printTextualGraph(graph: TextualGraph[])}: Kinyomtatja a fő munkaterületre a szöveges gráfot.
+    
+    \item \lstinline{adjustLevelLabelsOnForm()}: beállítja a címkéket az űrlapon, annak megfelelően, hogy a felhasználó milyen szintet választott ki.
+    
+    \item \lstinline{setForm(formState: DependencyGraphState)}: Paraméteréül kapott állapotot beállítja az űrlapon
+    
+    \item \lstinline{separateContent(content: string[]): string}: paraméterűül adott szting tömböt pontosvesszű álltal elválasztott szöveggé alakítja.
+    
+\end{itemize}
+
+
+Végül történik egy kis össze állítás, mikor is a különbözö HTML elemek eseményeire az eseménykezelők rá lesznek kötve.
+
 
 \subsubsection{Kommunikáció a többi komponenssel}
-\todo{??}
-\section{Komponensek telepítőinek előállítása}
 
-\todo{??}
+A Visualiser komponens csak a RefactorErl-el kommunikál Web Socketen keresztül.
+
+
 
 \section{Teljes alkalmazás tesztelése}
 
@@ -1328,10 +1520,12 @@ Az automatikus tetszteket az egység tesztek szintjéig sikerült kivitelezni, d
 
 \subsection{Diagnosztikák tesztelése}
 
+Ebben a részben a diagnosztikák tesztelésével fogunk foglalkozni, ahol is az Erlang LS és a RefactorErl integrációját teszteljük.
+
 \noindent Tekintsük az alábbi teszt fájlt:
 
-\lstset{caption=\lstinline{show.erl} teszt fájl, label=src:erlang} \label{mapConvertJson}
-\begin{lstlisting}[language={erlang}] 
+\lstset{caption=\lstinline{show.erl} teszt fájl, label=src:erlang} \label{testShowERL}
+\begin{lstlisting}[language={erlang}]  
 -module(show).
 -export([safe_os_call/0, unsafe_os_call/1]).
 -define(EXAMPLE_MACRO, 67).
@@ -1343,15 +1537,12 @@ unsafe_os_call(A) ->
     os:cmd(A).
 \end{lstlisting}
 
-Ebben az esetben két diagnosztika aktív: \textit{nem használt makrók detektálása} és a \textit{nem biztonságos }
+Ebben az esetben két diagnosztika aktív: \textit{nem használt makrók detektálása} és a \textit{nem biztonságos OS modul hívások}. Amint a \ref{testShowERL} forrásban láthatjuk a harmadik sorban van egy nem használt makró, illetve a kilencedik sorban egy nem biztonságos hívás. Azt várjuk el, hogy ezen sorokat jelezze a rendszer.
 
-kép 
+\noindent Először ellenőrizzük le, hogy a RefactorErl Shell felületéből ezen információk valóban megérkeznek.
 
-kép
-
-console
-
-
+\lstset{caption=\lstinline{show.erl} teszt fájl diagnosztikai eredményei, label=src:erlang} \label{testShowSHELL}
+\begin{lstlisting}[language={shell}]  
 (referl@fikoMac)26> ri:ls().                                        
 {{ok,["/Users/fikorobert/Projects/ELS_Referl/els_dev/show.erl"]},{error,[]}}
 ok
@@ -1363,34 +1554,302 @@ ok
 show.erl
     EXAMPLE_MACRO
 ok
+\end{lstlisting}
+
+A \ref{testShowSHELL} részleten láthatjuk, hogy a fájl megfelelően be lett töltve, majd az első lekérdezés valóban vissza adja a \lstinline{show:unsafe_os_call/1}-t miben van egy nem biztonságos hívás, mégpedig a \lstinline{os:cmd(A)}. A második lekérdezés pedig valóban visszaadja azt, hogy tényleg az \lstinline{EXAMPLE_MACRO} nincs használéatban.
+
+\noindent Következő lépésben nyissuk meg a Visual Studio Code-ot és vessük össze az eredményt.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/testCases/showUnsecure.png}
+  \caption{Nem biztonságos hívás a \textit{show} modulban}
+  \label{fig:showUnsecure}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/testCases/showMacro.png}
+  \caption{Nem használt makró a \textit{show} modulban}
+  \label{fig:showMacro}
+\end{figure}
+
+Láthatjuk a \ref{fig:showUnsecure} és a \ref{fig:showMacro} ábrán, hogy valóban azok a diagnosztikák jelennek meg azon függvényeknél, amit elvárunk a Shell-es kimenet alapján.
+
+\subsection{Kódakciók helyes megjelenítésének ellenőrzése} \label{codeactionIntro}
+
+A kövezkező a tesztesetekben az Erlang LS és a RefactorErl, illetve a Visualiser komponens kapcsolatát teszteljük, azálltal, hogy azon kódakciókat leteszteljük.
+
+
+Első lépésnek ellenőrizzük le azt, hogy amenyiben a RefactorErl nem fut, valóban nem ad felesleges végre hajtásra nem alkalmas kódakciókat, ehhez az alábbi parancsot futtattam: \lstinline{epmd -names} a visszatérési listában ellenőrizzük le, hogy valóban nem fut RefactorErl példány. 
+
+Következő lépésnek indítsuk el a Visual Studio Code-ot. Jobb alsó sarokban meg is kapjuk az értesítést, hogy \textit{RefactorErl is not connected}, s ha egy változó felé visszük a kurzort valóban nem kapunk kódakció javaslatot. Ezt ellenőrizzük le a függvény definíciók és modul definíciók esetében is. A következő képernyő fotókon (\ref{fig:NoCodeActFun}, \ref{fig:NoCodeActVar}, \ref{fig:NoCodeActMod} és \ref{fig:NoCodeActApp}) láthatjuk azt, hogy valóban nem kapunk kódakció javaslatokat.
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/testCases/NoCodeActVar.png}
+  \caption{Nincsen kódakció változó esetében}
+  \label{fig:NoCodeActVar}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/testCases/NoCodeActFun.png}
+  \caption{Nincsen kódakció függvény definíció esetében}
+  \label{fig:NoCodeActFun}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/testCases/NoCodeActMod.png}
+  \caption{Nincsen kódakció modul definíció esetében}
+  \label{fig:NoCodeActMod}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/testCases/NoCodeActApp.png}
+  \caption{Nincsen kódakció függvény hívás esetében}
+  \label{fig:NoCodeActApp}
+\end{figure}
+
+Következő lépésben indítsuk el a RefactorErl-t. Majd a fájl újratöltése után megjelennek a kódakciók.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/testCases/CodeActVar.png}
+  \caption{Kódakció változó esetében}
+  \label{fig:CodeActVar}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/testCases/CodeActFun.png}
+  \caption{Kódakció függvény definíció esetében}
+  \label{fig:CodeActFun}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/testCases/CodeActMod.png}
+  \caption{Kódakció modul definíció esetében}
+  \label{fig:CodeActMod}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/testCases/CodeActApp.png}
+  \caption{Kódakció függvény hívás esetében}
+  \label{fig:CodeActApp}
+\end{figure}
+
+A \ref{fig:CodeActFun}, \ref{fig:CodeActVar}, \ref{fig:CodeActMod} és \ref{fig:CodeActApp} ábrákon láthatjuk, hogy megjelentek a kódakciók, s ez teljes mértékben az elvárt működést prezentálja. 
+
+\textit{Megjegyzés: sajnos a \ref{fig:CodeActApp} ábrán a \lstset{execute} függvény hívása nem látszik, mert pont kitakarja a kódackió menüje, de \ref{fig:NoCodeActApp} ábrán látható a kitakart terület. }
 
 
 
 \subsection{Változó Origin értékének kiszámításának tesztelése}
 
+Korábbiakban (\ref{codeactionIntro} részben) ellenőriztük, hogy valóban megjelennek a kódakciók, így ezek helyes működését a következő kódakciókkal kapcsolatos teszt esetekben feltételezzük.
+
+\noindent Ehhez az alábbi teszt fájlt használjuk:
+
+\lstset{caption=\lstinline{variables.erl} teszt fájl, label=src:erlang} \label{testVariablesERL}
+\begin{lstlisting}[language={erlang}]  
+-module(variables).
+-export([alpha/1]).
+
+alpha(John) -> beta(John).
+
+beta(James) -> 
+    gamma(James), 
+    delta(James).
+
+gamma(_Alisson) -> ok.
+
+delta(Jane) -> execute(Jane).
+
+execute(Emil) -> {ok, Emil}.
+\end{lstlisting}
+
+A \ref{testVariablesERL} forrás 14. sorában levő visszatérési \lstinline{Emil} változó Origin értékét szeretnénk kiszámítani
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/testCases/testVarOr.png}
+  \caption{Origin kódakció eredményei}
+  \label{fig:testVarOr}
+\end{figure}
+
+
+Láthatjuk, a \ref{fig:testVarOr} ábrán, hogy a jobb oldalon meg is jelentek a lehetséges Origin értékek, amik megegyeznek a \ref{testOriginShell} kimenetben találhatóakkal
+
+
+\lstset{caption=Válltozó Origin értéke Shellből, label=src:shell} \label{testOriginShell}
+\begin{lstlisting}[language={shell}]  
+(referl@fikoMac)27> ri:q("mods[name=variables].funs[name=execute].vars[name=Emil].refs.origin").    
+Emil
+    James
+    James
+    Jane
+    Jane
+    Emil
+    Emil
+    John
+    John
+ok
+\end{lstlisting}
+
+
 \subsection{Változó Reach értékének kiszámításának tesztelése}
 
-\subsection{Függvény dinamikus hívásainak tesztelése}
 
-\subsection{Modul függőségi gráfjának generálásának tesztelése}
+Korábbiakban (\ref{codeactionIntro} részben) ellenőriztük, hogy valóban megjelennek a kódakciók, így ezek helyes működését a következő kódakciókkal kapcsolatos teszt esetekben feltételezzük.
+
+\noindent Ehhez szintén a \ref{testVariablesERL} fájlt használjuk.
+ 
+
+A \ref{testVariablesERL} forrás 6. sorában levő visszatérési \lstinline{James} változó Reach értékét szeretnénk kiszámítani
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/testCases/testVarReach.png}
+  \caption{Reach kódakció eredményei}
+  \label{fig:testVarReach}
+\end{figure}
+
+
+Láthatjuk, a \ref{fig:testVarReach} ábrán, hogy a jobb oldalon meg is jelentek a lehetséges Reach értékek, amik megegyeznek a \ref{testReachShell} kimenetben találhatóakkal
+
+
+\lstset{caption=Válltozó Origin értéke Shellből, label=src:shell} \label{testReachShell}
+\begin{lstlisting}[language={shell}]  
+(referl@fikoMac)29> ri:q("mods[name=variables].funs[name=beta].vars[name=James].bindings.reach"). 
+James
+    James
+    James
+    James
+    Jane
+    Jane
+    Emil
+    Emil
+    _Alisson
+ok
+\end{lstlisting}
+
 
 \subsection{Függvény függőségi gráfjának generálásának tesztelése}
 
-\subsection{Ürlap alapján gráf generálásának tesztelése}
+\lstset{caption=\lstinline{dependency.erl} teszt fájl, label=src:erlang} \label{testdependencyERL}
+\begin{lstlisting}[language={erlang}]  
+-module(dependency).
 
-\subsection{Vezérlőpult tesztelése}
+len(List) ->
+    length(List).
+
+isHundered(List) ->
+    hello(),
+    case len(List) of
+        100 -> true;
+        _ -> false
+    end.
+
+hello() ->
+    io:format("Hello World!").
+\end{lstlisting}
+
+A \ref{testdependencyERL} forrásban, ha a \lstinline{isHundered/1} függvénye fölé állunk, és onnan kérünk egy függőségi gráfot, akkor ezt az eredményt kapjuk:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/testCases/funDep.png}
+  \caption{Függvény függőség kódakció eredményei}
+  \label{fig:funDep}
+\end{figure}
 
 
+\lstset{caption=Függvány függőség lekérdezésének eredménye, label=src:shell} \label{testDepFunSHELL}
+\begin{lstlisting}[language={shell}]  
+(referl@fikoMac)2> ri:print_dep([{level, func}, {starting_nodes, ["dependency:isHundered/1"]}]).
+{ok,[{"dependency:hello/0",["io:format/1"]},
+     {"dependency:isHundered/1",
+      ["dependency:len/1","dependency:hello/0"]},
+     {"dependency:len/1",["erlang:length/1"]},
+     {"io:format/1",[]},
+     {"erlang:length/1",[]}]}
+\end{lstlisting}
 
 
+Ha összevetjük a \ref{fig:funDep} ábrán látható eredményt a \ref{testDepFunSHELL} Erlang Shell-beli eredményével, akkor láthatjuk, hogy ugyan azt az információt kaptuk. Ugye ami a nyíl előtti részen van, az a pár első komponense, míg a nyíl utáni rész a pár második komponense.
 
 
+\subsection{Modul függőségi gráfjának generálásának tesztelése}
+
+A modul függőségek tesztelésének is a \ref{testdependencyERL} fájlt fogjuk használni, hiszen ez a fájl modul szinten függ az \lstinline{erlang} és a \lstinline{io} moduloktól is, nézzük meg ezt először egy RefactorErl Shell interfészbeli lekérdezés segítségével.
+
+\lstset{caption=Függvány függőség lekérdezésének eredménye, label=src:shell} \label{testDepFunSHELL2}
+\begin{lstlisting}[language={shell}]  
+(referl@fikoMac)3> ri:print_dep([{level, mod}, {starting_nodes, ["dependency"]}]).              
+{ok,[{"erlang",[]},
+     {"dependency",["io","erlang"]},
+     {"io",[]}]}
+\end{lstlisting}
+
+A \ref{testDepFunSHELL2} Shell részlet alapjána a függőségi feltevélseink megerősíthetőek, nézzük meg, hogy a kódakciók is ugyanezt az eredményt hozzák e. Álljunk a kurzorral a modul definíció főle, majd válasszuk a \textit{Dependency graph from dependency} opciót, ahol itt a kis betűvel szedett \textit{dependency} a modul neve. 
 
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{images/testCases/depMod.png}
+  \caption{Modul függőség kódakció eredményei}
+  \label{fig:depMod}
+\end{figure}
+
+A \ref{fig:depMod} ábrán is látható, hogy a megfelelő eredményt kaptuk. Ezzel a módszerrel az űrlap alapján történő generálást is leteszteltük, hiszen az Erlang LS csak a paramétereket küldi meg a generáláshoz, a kérés elküldése a Visualiser komponens feladata.
 
 
+\subsection{Függvény dinamikus hívásainak tesztelése}
+
+A dinamikus függvény hívások teszteléséhez az alábbi \ref{testDynCallERL} fájlt fogjuk használni.
+
+\lstset{caption=\lstinline{calls.erl} teszt fájl, label=src:erlang} \label{testDynCallERL}
+\begin{lstlisting}[language={erlang}]  
+-module(calls).
+
+dyncall() ->
+    apply(calls, test, []).
+
+call() ->
+    test().
+
+test() ->
+    hello.
+\end{lstlisting}
+
+Tekintsük meg a következő \ref{testDynCallSHELL} Shell részletet. Láthatjuk, hogy a \lstinline{test} nevű függvény egyszer teszt formájában meghívásra kerül, míg máskor \lstinline{apply/3} segítségével értékelődik ki.
 
 
+\lstset{caption=Függvény dinamikus hívásainak lekérdezésének eredménye, label=src:shell} \label{testDynCallSHELL}
+\begin{lstlisting}[language={shell}]  
+(referl@fikoMac)7> ri:q("mods[name=calls].funs[name=test].references").
+calls:test/0
+    apply(calls, test, [])
+    test()
+ok
+\end{lstlisting}
 
+A következő \ref{fig:dynCall} ábrán is látható, hogy a megfelelő eredményt kaptuk.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{images/testCases/dynCall.png}
+  \caption{Modul függőség kódakció eredményei}
+  \label{fig:dynCall}
+\end{figure}
 
 
