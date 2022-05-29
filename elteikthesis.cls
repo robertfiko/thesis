@@ -501,17 +501,17 @@
 				\end{tabular}
 			\else
 				\vspace{1.0cm}
-				\hspace{-1.7cm}\begin{tabular}{ l c l }
+				\hspace{0cm}\begin{tabular}{ l c l }
 					{\it \large \suplabel:} &
-					\hspace{0cm} &
+					\hspace{1cm} &
 					{\it \large \authorlabel:}\\
 
 					{\large \supname} &
-					\hspace{0cm} &
+					\hspace{1cm} &
 					{\large \authorname}\\
 
 					\supaff &
-					\hspace{0cm} &
+					\hspace{1cm} &
 					\degreename\\
 				\end{tabular}
 			\fi
