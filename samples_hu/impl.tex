@@ -532,7 +532,7 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
         \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően
         \item \textbf{Leírás:} Az \lstinline{execute_query/5} segítségével kiszámolja a változó Reach értékét és Web Socketen keresztül megküldi a Visualisernek.
     \end{itemize}
-    \item \lstinline|-spec execute_query(string(), {number(), number()}, string(), atom(), string())| \lstinline{ -> ok | error.}
+    \noindent \lstinline|-spec execute_query(string(), {number(), number()}, string(), atom(), string())| \lstinline{ -> ok | error.}
     \begin{itemize}
         \item \textbf{Bemenet:}
         \begin{enumerate}
@@ -1153,7 +1153,7 @@ Az ebben a fájlban megvalósított osztályok nagyon hasonlítanak a \lstinline
 \noindent \textbf{CustomQueryProvider}
 
 
-\noindentKiterjeszti a \lstinline{ReferlProvider} osztályt. Három függvénye van, amit lényegében a Visual Studio Code API-ja hív meg időről időre. Az egyik a \lstinline{getTreeItem}, ami lényegében visszaadja a paraméterül adott fa item-et. A másikodik pedig a \lstinline{getChildren} ami pedig egy fa item, gyerekeit számolja ki és adja vissza. A harmadik pedig a \lstinline{selectTreeItem} ami pedig alkalmazza rá a dekorációs stílust.
+\noindent Kiterjeszti a \lstinline{ReferlProvider} osztályt. Három függvénye van, amit lényegében a Visual Studio Code API-ja hív meg időről időre. Az egyik a \lstinline{getTreeItem}, ami lényegében visszaadja a paraméterül adott fa item-et. A másikodik pedig a \lstinline{getChildren} ami pedig egy fa item, gyerekeit számolja ki és adja vissza. A harmadik pedig a \lstinline{selectTreeItem} ami pedig alkalmazza rá a dekorációs stílust.
 
 
 
