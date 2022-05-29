@@ -213,7 +213,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline{-spec variable_reach(uri(), {number(), number()}) -> error | ok.}
+    \item \lstinline|-spec variable_reach(uri(), {number(), number()} ) -> error |\lstinline{| ok.} \lstinline|}|
     \begin{itemize}
             \item \textbf{Bemenet}: Első paraméter az útvonal binárosan, a második párban rendre sor és oszlop információ, az adott változóról.
             \item \textbf{Kimenet}: \lstinline{error}, ammenyiben valami hiba történt, \lstinline{ok} ammenyiben mindben rendben.
@@ -265,9 +265,7 @@ available_diagnostics() ->
  \end{lstlisting}
  
 Minden egyes fent felsorolot azonosítóhoz tartozik egy modul, mely implementálj a logikát. A modul neve a következő képpen áll elő: \lstinline{els_<diagnosztika_azonosito>_diagnostics}.
-
 \\
-
 \subsubsection{\lstinline{els_config} modul módosítása}
 
 Ezen kívül ahhoz, hogy a diagnosztikából olvassunk, az \lstinline{els_config} modulba is kellett kiegészítéseket tenni.
@@ -518,7 +516,7 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
     \end{itemize}
     
     
-    \item \lstinline{-spec variable_origin(string(), {number(), number()}) -> ok | error.}
+    \item \lstinline|-spec variable_origin(string(), {number(), number()})| \lstinline{ -> ok | error.}
     \begin{itemize}
         \item \textbf{Bemenet:} Elérési útvonal és sor, oszlop páros az adott változó pozíciójának meghatározásához
         \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően
@@ -634,7 +632,7 @@ Amint a fenti \ref{mapConvertJson} kódrészleten látszodik, ahogyan az adatsze
             {"name", Name},             % nev infomacio
             {"hoverInfo", HoverInfo},   % lebego informacio
             {"file", File},             % fajl
-            {"noPos", false | true}     % tartalmaz-e poziciót?
+            {"noPos", false | true}     % tartalmaz-e poziciot?
         ]}
 \end{lstlisting}
 
@@ -644,20 +642,13 @@ Amint a fenti \ref{mapConvertJson} kódrészleten látszodik, ahogyan az adatsze
 
 \noindent \textbf{Néhány fogalom}
 
-\\
 \vspace{14pt}
-
 \noindent \textbf{Property} az Erlangban egy propertynek nevezünk egy olyan adatszerkezetet  ami vagy önmagában egy atom vagy kulcs érték pár. Kulcsként legtöbbször atomot választunk, bár ez inkább csak konveció (szokás).
 
-\\
 \vspace{14pt}
-
-
 \noindent \textbf{Property lista} egy olyan lista melynek elemei \textit{property-k}. Gyakran emlegetjük röviden \textbf{proplist}-nek.
 
-\\
 \vspace{14pt}
-
 Ez a modul felelős a Yaws webszerver beágyazott módban való elindításáért és felkonfigurálásáért. \cite{zacharyYawsBook}
 A modul jelentős részében a \lstinline{referl_web2} modulra épül. Két interfész függvénye van:
 
@@ -699,10 +690,9 @@ Ez a modul felelős a Web Socketen keresztül történő kommunikációért. A p
 \noindent \lstinline{handle_open(WSState, State)} \\
 \noindent Egy Yaws Callback függvény. Akkor kerül meghívásra, amikor egy új Web Socket akar kapcsolódni. A \lstinline{WSState} tartalmazza a Web Socket azonosítóját, ezt eltároljuk későbbre, amikor közlés alapú küldést szeretnénk végrahajtni (például, mert ELS-ből jött a kérés).
 
-\\
 \vspace{14pt}
 \noindent \textbf{Publikus interfész}
-\\
+
 
 \noindent \lstinline{handle_message(Message, State)} \\
 \noindent Egy Yaws Callback függvény. Akkor kerül meghívásra, amikor egy üzenet érkezik egy Socket felől. A \lstinline{Message} paraméter három kategóriába sorolható, s így a működése is:
@@ -724,18 +714,18 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
 \noindent \lstinline{-spec broadcast_info(string()) -> error | ok.}\\
 \noindent A paraméteréül adott, szöveget az összes kapcsolódott Web Socket felé továbbítja az \lstinline{info} esemény azonosítóval.\\
 
-\\
+
 \vspace{14pt}
 \noindent \textbf{Definiált típusok}
-\\
+
 \noindent A modul egyetlen szinonímát definiál:
 \noindent \lstinline{-type jsonlike() :: term().}
 
 
-\\
+
 \vspace{14pt}
 \noindent \textbf{Belső működése}
-\\
+
 
 
 \noindent \lstinline{handle_request(Request)}
@@ -759,7 +749,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
         \item Amennyiben olyan lekérdezés érkezett, ami nem tartalmaz típus azonosítót vagy olyat tartalmaz, amit nem ismerünk, úgy ezt hibakét jelezzük.
         
     \end{itemize}
-\end{itemize} \\
+\end{itemize} 
 
 
 
@@ -775,7 +765,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
     {"data", Data},         % adat
 ]}
 \end{lstlisting}
-\end{itemize} \\
+\end{itemize} 
 
 \noindent \lstinline{-spec create_callback_event(undefined | string(), term()) -> ok | error | {text, jsonlike()} \lstinline|}.}|
 \begin{itemize}
@@ -790,23 +780,23 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
     {"data", Data},             % adat
 ]}
 \end{lstlisting}
-\end{itemize} \\
+\end{itemize} 
 
 \noindent \lstinline{-spec get(list(), term()) -> term().}
 \begin{itemize}
     \item \textbf{Bemenet:} első paramétere egy kulcs, a második egy lekérdezés leíró
     \item \textbf{Kimenet:} bármilyen Erlang term, ami a kulcs alatt van
     \item \textbf{Leírás:} A megadott kulcson található értéket visszadaja a lekérdezés leíróból. Amennyiben a kulcs nincs jelen úgy, \lstinline{undefined}-ot ad vissza.\\ \\ Egy lekérdezés leíró lényegében egy kulcs érték pároból álló lista, ami Web Socketen kersztül érkezik.
-\end{itemize} \\
+\end{itemize} 
 
 \noindent \lstinline{-spec cbId(term()) -> term().}
 \begin{itemize}
     \item \textbf{Bemenet:} Egy lekérdezés leíró
     \item \textbf{Kimenet:} A visszaküldési azonosító, amennyiben a lekérdezés leíróban jelen van. Ha nincs jelen, akkor \lstinline{undefined}
     \item \textbf{Leírás:} Egyszerű kis segédfüggvény, ami visszadja a visszaküldési azonosítót ha jelen van a \lstinline{get/2} segítségével.
-\end{itemize} \\
+\end{itemize} 
 
-\noindent \lstinline{-spec dot_to_svg(string()) -> {ok, string()} | file_notexists | error | timeout.}
+\noindent \lstinline|-spec dot_to_svg(string()) -> {ok, string()} |\lstinline{| file_notexists | error | timeout.}
 \begin{itemize}
     \item \textbf{Bemenet:} Egy elérési útvonal, ahol a DOT file található
     \item \textbf{Kimenet:} 
@@ -816,7 +806,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
         \item \lstinline|error|: az eljárás közben hibatörtént
     \end{itemize}
     \item \textbf{Leírás:} Az \lstinline{erlang:open_port/2} segítségével egy rendszerhíváson keresztül átalakítja a DOT fájlt SVG fájllá.
-\end{itemize} \\
+\end{itemize}
 
 
 \noindent \lstinline{-spec construct_path(list()) -> list().}
@@ -824,7 +814,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
     \item \textbf{Bemenet:} egy fájlnév
     \item \textbf{Kimenet:} egy útvonal
     \item \textbf{Leírás:} a megadott fájlnévhez előállítja az adatkönyvtárbeli útvonalat.
-\end{itemize} \\
+\end{itemize} 
 
 
 \noindent \lstinline{custom_query_req(Request)}
@@ -850,11 +840,11 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
     \item \lstinline{construct_eq_response/3}: egy RefactorErl pozíció mentes válasz listából és egy lebegő információból, illetve egy fájl névből a \lstinline{construct_position_response/8} meghívásával pozíció mentes listás választ állít elő, mely esetlben a sor, oszlop információk 0 értéket tartlamzanak, illetve \lstinline{noPos} kulcs alatt igaz érték fog szereplni.
         
         
-\end{itemize} \\
+\end{itemize} 
     \end{itemize}
     
     
-\end{itemize} \\
+
 
 
 \noindent \lstinline{-spec get_graph_options(list()) -> list().}
@@ -862,7 +852,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
     \item \textbf{Bemenet:} egy \textit{proplist} ami Web Socketen keresztül érkezett és a kulcsai lehetnek: \lstinline{"type", "level", "starting_nodes", "exclude_otp", "exclude", "exclude_lib", "connection", "output_type"}. ezek hasonlóak, mint ahogy Shell-ből paramétereznénk a gráf lekérdezést. \cite{referlWikiDependency}
     \item \textbf{Kimenet:} Egy olyan property lista, ami átadható a gráf lekérdezésnek.
     \item \textbf{Leírás:} A szükséges ellenőrzések és átalakítások után a Web Socketen keresztül érkezett adatszerkezetből a RefactorErl függőségi gráf készítőjének átadható listát állít elő.
-\end{itemize} \\
+\end{itemize} 
 
 
 
@@ -874,7 +864,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
     \\ \lstinline{simple} kategória: \lstinline{"databaseSync", "dynamicAnal", "dynamicClear"}
     \\ \lstinline{construct} kategória: \lstinline{"customQueryRequest", "dependencyGraph"}
     \\ \lstinline{unknow} kategória: minden más
-\end{itemize} \\
+\end{itemize} 
 
 
 \noindent \lstinline{execute_graph_request(Request)}
@@ -882,7 +872,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
     \item \textbf{Bemenet:} egy lekérdezés leíró
     \item \textbf{Kimenet:} Yaws válasz objektum
     \item \textbf{Leírás:} a megadott lekérdezés leíróban található  gráf lekérdezést végrehajtja és a szükséges adatokat visszaküldi. Amennyiben a gráf szöveges ábrázolású, úgy a teljes gráfót átküldi, míg SVG reprezentáció kérése esetén csupán a fájl elérését. Az utóbbi esetben használja a \lstinline{construct_dot_response/1} segédfüggvényt, amely a DOT fájllá alakítás sikerességétől függően előállítja a válasz vagy hibaobjektumot.
-\end{itemize} \\
+\end{itemize} 
 
 
 \noindent \lstinline{error_reply(Request)}
@@ -890,7 +880,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
     \item \textbf{Bemenet:} egy lekérdezés leíró
     \item \textbf{Kimenet:} Yaws válasz objektum
     \item \textbf{Leírás:} a \lstinline{request_class/1} alapján a megfelelő formátumú hibát fogja küldeni. Ez végső esetben használatos, amikor nem teljesen nyílván való a hiba oka.
-\end{itemize} \\
+\end{itemize} 
 
 
 
@@ -956,10 +946,10 @@ Lényegében egyetlen osztályszintű függvént tartalmaz: \lstinline{setComman
 
 Ebben a fájlban a \lstinline{ReferlProvider} osztály implementációja és a hozzátartozó segéd típisuok, osztályok és interfészek.
 
-\\
+
 \vspace{14pt}
 \textbf{ReferlProvider}
-\\
+
 
 Ez az osztály lényegében egy sablon, absztrakt osztály a beépített és az egyedi lekérdezéseknek. Implementálja a \lstinline{vscode.TreeDataProvider} interfészt. Vizsgáljuk meg a nyílvános részei.
 
@@ -969,18 +959,18 @@ Ez az osztály lényegében egy sablon, absztrakt osztály a beépített és az 
     \item \lstinline{static selectTreeItem(rangeDescriptor: RangeDescriptor, decoration: vscode.TextEditorDecorationType, message: string)}: az első paraméterben megadott helyre állítja a szerkesztőt, majd a második paraméteréül kapott dekorációs stílusokat alkalmazza rá, s a harmadik paraméterben kapott üzenet lesz az az üzenet, ami akkor jelenik meg ha a felhasználó a kurzorát fölé viszi
 \end{itemize}
 
-\\
+
 \vspace{14pt}
 \textbf{ReferlTreeItem}
-\\
-
-Ez egy egyszerű fa elem, ami minimálisan a \lstinline{vscode.TreeItem} \footnote{https://code.visualstudio.com/api/references/vscode-api#TreeItem} osztályt bővíti ki. Lényegében egy konstruktora van, amiben rendre megadhatjuk a címet, az alcímet, összecsukási állapotot, a parancsot és az ikonok elérési útját, bár az utóbbi kettő nem kötelező.
 
 
-\\
+Ez egy egyszerű fa elem, ami minimálisan a \lstinline{vscode.TreeItem} \footnote{\url{https://code.visualstudio.com/api/references/vscode-api##TreeItem}} osztályt bővíti ki. Lényegében egy konstruktora van, amiben rendre megadhatjuk a címet, az alcímet, összecsukási állapotot, a parancsot és az ikonok elérési útját, bár az utóbbi kettő nem kötelező.
+
+
+
 \vspace{14pt}
 \textbf{ItemDescriptor}
-\\
+
 
 Egy interfész, amely az alábbi adattagok jelenlétét követeli meg:
 \begin{itemize}
@@ -990,19 +980,19 @@ Egy interfész, amely az alábbi adattagok jelenlétét követeli meg:
 \end{itemize}
 
 
-\\
+
 \vspace{14pt}
 \textbf{RangeCommand}
-\\
 
-Ez egy egyszerű fa elem, ami minimálisan a \lstinline{vscode.Command} \footnote{https://code.visualstudio.com/api/references/vscode-api#Command} osztályt bővíti ki. 
+
+Ez egy egyszerű fa elem, ami minimálisan a \lstinline{vscode.Command} \footnote{\url{https://code.visualstudio.com/api/references/vscode-api##Command}} osztályt bővíti ki. 
 A konstruktorban lényegében egy \lstinline{ItemDescriptor} interfészt implementáló típust kell megadni ami a parancs argumentumja lesz. A parancshoz a \lstinline{"customQuery.goToLocation"} parancs lesz hozzákötve.
 
 
-\\
+
 \vspace{14pt}
 \textbf{RangeDescriptor}
-\\
+
 
 Implementálja a lstinline{ItemDescriptor} interfészt. Konstruktora az alábbi paramáterezéssel hívható meg: 
 
@@ -1022,10 +1012,10 @@ Implementálja a lstinline{ItemDescriptor} interfészt. Konstruktora az alábbi 
 \noindent Ezen kívül még az osztály \lstinline{subtitle} adattagjára beállítja a \lstinline{""}-t (\textit{üres sztring}).
 
 
-\\
+
 \vspace{14pt}
 \textbf{NoPosDescriptor}
-\\
+
 
 Implementálja a \lstinline{ItemDescriptor} interfészt. Konstruktora egyetlen paramétert fogad, a címet, ami meg legyen jelenítve, hiszen ehez az osztályhoz nem tartozik pozíció így sem fájéra sem pedig lebegő információra nincsen szükség.
 
@@ -1036,10 +1026,10 @@ Implementálja a \lstinline{ItemDescriptor} interfészt. Konstruktora egyetlen p
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{ResponseItem}
-\\
+
 
 Egy típus, amely az alábbi adattagokkal rendelkezik
 
@@ -1068,10 +1058,10 @@ Egy típus, amely az alábbi adattagokkal rendelkezik
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{DataStorage}
-\\
+
 
 \noindent Egy interfész, amely az alábbi függvény implementálását követeli meg:
 
@@ -1083,10 +1073,10 @@ Egy típus, amely az alábbi adattagokkal rendelkezik
 \subsubsection{\lstinline{builtInQView.ts}}
 
 
-\\
+
 \vspace{14pt}
 \textbf{BuiltInQViewProvider}
-\\
+
 
 Kiterjeszti a \lstinline{ReferlProvider} osztályt. Három függvénye van, amit lényegében a Visual Studio Code API-ja hív meg időről időre. Az egyik a \lstinline{getTreeItem}, ami lényegében visszaadja a paraméterül adott fa item-et. A másikodik pedig a \lstinline{getChildren} ami pedig egy fa item, gyerekeit számolja ki és adja vissza. A harmadik pedig a \lstinline{selectTreeItem} ami pedig alkalmazza rá a dekorációs stílust
 
@@ -1097,10 +1087,10 @@ Kiterjeszti a \lstinline{ReferlProvider} osztályt. Három függvénye van, amit
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{SubTreeItem}
-\\
+
 
 Kiterjeszti a \lstinline{ReferlTreeItem} osztályt. Megadja az ikonját és a konstruktora rendre az alábbi paraméterekkel hívható: cím, alcím és az eredmény amihez kapcsolni szeretnénk. Ezen kívül opcionálisan megadható az ikon is, ha nem szeretnénk az alapértelmezetettet használni.
 
@@ -1108,10 +1098,10 @@ Kiterjeszti a \lstinline{ReferlTreeItem} osztályt. Megadja az ikonját és a ko
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{BuiltInQDataResponse}
-\\
+
 
 
 Egy típus, amely az alábbi adattagokkal rendelkezik
@@ -1124,10 +1114,10 @@ Egy típus, amely az alábbi adattagokkal rendelkezik
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{BuiltInQDataStorage}
-\\
+
 
 Implementálja a \lstinline{DataStorage} interfészt. Egyetlen adattagja van a \lstinline{data} ami egy \lstinline{BuiltInQDataResponse} típus. Ez használatos a belső adatreprezentációra. Nézzük meg a függvényeit:
 
@@ -1154,10 +1144,10 @@ Implementálja a \lstinline{DataStorage} interfészt. Egyetlen adattagja van a \
 Az ebben a fájlban megvalósított osztályok nagyon hasonlítanak a \lstinline{builtInQView.ts} fájlban megvalósítottakhoz, azonban néhány apró helyen különböznek, amiket nem lehetett kiemelni a közös ősbe. Ezen különbségeket \textbf{félkövérrel} a legtöbb helyen kiemeltem.
 
 
-\\
+
 \vspace{14pt}
 \textbf{CustomQueryProvider}
-\\
+
 
 Kiterjeszti a \lstinline{ReferlProvider} osztályt. Három függvénye van, amit lényegében a Visual Studio Code API-ja hív meg időről időre. Az egyik a \lstinline{getTreeItem}, ami lényegében visszaadja a paraméterül adott fa item-et. A másikodik pedig a \lstinline{getChildren} ami pedig egy fa item, gyerekeit számolja ki és adja vissza. A harmadik pedig a \lstinline{selectTreeItem} ami pedig alkalmazza rá a dekorációs stílust
 
@@ -1165,10 +1155,10 @@ Kiterjeszti a \lstinline{ReferlProvider} osztályt. Három függvénye van, amit
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{CustomQuerySubTreeItem}
-\\
+
 
 Kiterjeszti a \lstinline{ReferlTreeItem} osztályt. Megadja az ikonját és a konstruktora rendre az alábbi paraméterekkel hívható: cím, alcím, az \textbf{összecsukás állapota} és az eredmény amihez kapcsolni szeretnénk. Ezen kívül opcionálisan megadható az ikon is, ha nem szeretnénk az alapértelmezetettet használni.
 
@@ -1176,10 +1166,10 @@ Kiterjeszti a \lstinline{ReferlTreeItem} osztályt. Megadja az ikonját és a ko
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{ResponseWrapper}
-\\
+
 
 Egy egyszerű típus, amelyre azért van, hogy \textbf{csoportosítsa az eredményeket fájlokként}, hiszen egyedi lekérdezések esetén fájlokként csoportosítjuk és az alábbi adattagokkal rendelkezik:
 
@@ -1195,10 +1185,10 @@ Egy egyszerű típus, amelyre azért van, hogy \textbf{csoportosítsa az eredmé
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{CustomQueryDataResponse}
-\\
+
 
 Egy egyszerű típus, amely az alábbi adattagokkal rendelkezik:
 
@@ -1216,10 +1206,10 @@ Egy egyszerű típus, amely az alábbi adattagokkal rendelkezik:
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{CustomQueryDataStorage}
-\\
+
 
 
 Implementálja a \lstinline{DataStorage} interfészt. Egyetlen adattagja van a \lstinline{data} ami egy \lstinline{CustomQueryDataResponse} típus. Ez használatos a belső adatreprezentációra. Nézzük meg a függvényeit:
@@ -1280,17 +1270,17 @@ A fájl két típust és egy osztályt definiál. Kezdjük a típusokkal elősz�
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{ViewState}
-\\
+
 
 Ez a típus reprezentál egy nézeti állapotot azálltal, hogy tárolja a gráf és az űrlap állapotát.
 
 \begin{itemize}
     \item \lstinline{graph: GraphState | undefined}: a gráf állapota
     
-    \item \lstinline{formState: DependencyGraphState | undefined: az űrlap állapota
+    \item \lstinline{formState: DependencyGraphState | undefined}: az rlap állapota
 
 \end{itemize}
 
@@ -1299,10 +1289,10 @@ Ez a típus reprezentál egy nézeti állapotot azálltal, hogy tárolja a gráf
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{GraphState}
-\\
+
 
 Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
 
@@ -1328,10 +1318,10 @@ Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
 \end{itemize}
 
 
-\\
+
 \vspace{14pt}
 \textbf{DependencyGraphView}
-\\
+
 
 Ez az osztály felelős a függőségi gráfok megjelenítésére szolgáló panel kezelésére. Ezen a panel a Visual Studio Code Webview API-ját használja. Az osztály a szerkesztő API dokumentációjában lévő leírás alapján készült \cite{webViewGuide} és az ottani kezdő projekten alapszik. \footnote{\url{https://github.com/microsoft/vscode-extension-samples/blob/main/webview-sample/README.md}}. 
 
@@ -1355,7 +1345,7 @@ A \ref{fig:diagramDepg} ábrán láthatjuk az osztály felépítését, a függv
 
 A következő fájl egy érdekes darab. Ez egy típus definíciós fájl, ami külön ki lett emelve. Erre azért volt szükség, hogy az izoláltan futó Web View és kiegészítő fejlesztés folyamán azonos típus definíciókkal tudjun készülni, így elősegítve a típushelyes fejlesztést.
 
-\\
+
 \vspace{14pt}
 \textbf{TextualGraph}
 \begin{itemize}
@@ -1364,17 +1354,17 @@ A következő fájl egy érdekes darab. Ez egy típus definíciós fájl, ami k�
 \end{itemize}
 
 
-\\
+
 \vspace{14pt}
 \textbf{PathLike} 
-\\
+
 Lényegében egy szinoníma a \lstinline{string}-re
 
 
-\\
+
 \vspace{14pt}
 \textbf{GraphResponse}
-\\
+
 
 Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
 
@@ -1400,7 +1390,7 @@ Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
 \end{itemize}
 
 
-\\
+
 \vspace{14pt}
 \textbf{DependencyGraphState} 
 \\ Az alábbi adattagokat definálja. Tartalmuk a RefactorErl Wiki oldalán pontosabban le vannak írva. \cite{referlWikiDependency}
@@ -1419,7 +1409,7 @@ Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{ExtensionMessageParam}
 
@@ -1436,14 +1426,14 @@ Olyan adattípus ami akkor használatos, amikor a bővítmény küldd üzenetet 
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{ExtensionMessageCommands}
 Ez a típus az alábbi értékek közül vehet fel egyet: \lstinline{ 'updateResponse' | 'printTextualGraph' | 'textualGraphError' | 'setForm' | 'svgGraphPath'}
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{WebViewMessageCommands}
 Ez a típus az alábbi értékek közül vehet fel egyet: \lstinline{ 'dependencyGraph' | 'formState' | 'openSvg'}
@@ -1451,7 +1441,7 @@ Ez a típus az alábbi értékek közül vehet fel egyet: \lstinline{ 'dependenc
 
 
 
-\\
+
 \vspace{14pt}
 \textbf{WebViewMessageParam}
 Ez a típus üzenet paramétere, amennyiben a Web View küldi el az üzenetet. Több féle szerkezetű lehet:
@@ -1647,7 +1637,7 @@ Következő lépésben indítsuk el a RefactorErl-t. Majd a fájl újratöltése
 
 A \ref{fig:CodeActFun}, \ref{fig:CodeActVar}, \ref{fig:CodeActMod} és \ref{fig:CodeActApp} ábrákon láthatjuk, hogy megjelentek a kódakciók, s ez teljes mértékben az elvárt működést prezentálja. 
 
-\textit{Megjegyzés: sajnos a \ref{fig:CodeActApp} ábrán a \lstset{execute} függvény hívása nem látszik, mert pont kitakarja a kódackió menüje, de \ref{fig:NoCodeActApp} ábrán látható a kitakart terület. }
+\textit{Megjegyzés: sajnos a \ref{fig:CodeActApp} ábrán a \lstinline{execute} függvény hívása nem látszik, mert pont kitakarja a kódackió menüje, de \ref{fig:NoCodeActApp} ábrán látható a kitakart terület. }
 
 
 
