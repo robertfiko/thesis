@@ -1541,8 +1541,8 @@ Ebben az esetben két diagnosztika aktív: \textit{nem használt makrók detekt�
 
 \noindent Először ellenőrizzük le, hogy a RefactorErl Shell felületéből ezen információk valóban megérkeznek.
 
-\lstset{caption=\lstinline{show.erl} teszt fájl diagnosztikai eredményei, label=src:erlang} \label{testShowSHELL}
-\begin{lstlisting}[language={shell}]  
+\lstset{caption=\lstinline{show.erl} teszt fájl diagnosztikai eredményei, label=src:sh} \label{testShowSHELL}
+\begin{lstlisting}[language={sh}]  
 (referl@fikoMac)26> ri:ls().                                        
 {{ok,["/Users/fikorobert/Projects/ELS_Referl/els_dev/show.erl"]},{error,[]}}
 ok
@@ -1689,8 +1689,8 @@ A \ref{testVariablesERL} forrás 14. sorában levő visszatérési \lstinline{Em
 Láthatjuk, a \ref{fig:testVarOr} ábrán, hogy a jobb oldalon meg is jelentek a lehetséges Origin értékek, amik megegyeznek a \ref{testOriginShell} kimenetben találhatóakkal
 
 
-\lstset{caption=Válltozó Origin értéke Shellből, label=src:shell} \label{testOriginShell}
-\begin{lstlisting}[language={shell}]  
+\lstset{caption=Válltozó Origin értéke Shellből, label=src:sh} \label{testOriginShell}
+\begin{lstlisting}[language={sh}]  
 (referl@fikoMac)27> ri:q("mods[name=variables].funs[name=execute].vars[name=Emil].refs.origin").    
 Emil
     James
@@ -1727,8 +1727,8 @@ A \ref{testVariablesERL} forrás 6. sorában levő visszatérési \lstinline{Jam
 Láthatjuk, a \ref{fig:testVarReach} ábrán, hogy a jobb oldalon meg is jelentek a lehetséges Reach értékek, amik megegyeznek a \ref{testReachShell} kimenetben találhatóakkal
 
 
-\lstset{caption=Válltozó Origin értéke Shellből, label=src:shell} \label{testReachShell}
-\begin{lstlisting}[language={shell}]  
+\lstset{caption=Válltozó Origin értéke Shellből, label=src:sh} \label{testReachShell}
+\begin{lstlisting}[language={sh}]  
 (referl@fikoMac)29> ri:q("mods[name=variables].funs[name=beta].vars[name=James].bindings.reach"). 
 James
     James
@@ -1773,8 +1773,8 @@ A \ref{testdependencyERL} forrásban, ha a \lstinline{isHundered/1} függvénye 
 \end{figure}
 
 
-\lstset{caption=Függvány függőség lekérdezésének eredménye, label=src:shell} \label{testDepFunSHELL}
-\begin{lstlisting}[language={shell}]  
+\lstset{caption=Függvány függőség lekérdezésének eredménye, label=src:sh} \label{testDepFunSHELL}
+\begin{lstlisting}[language={sh}]  
 (referl@fikoMac)2> ri:print_dep([{level, func}, {starting_nodes, ["dependency:isHundered/1"]}]).
 {ok,[{"dependency:hello/0",["io:format/1"]},
      {"dependency:isHundered/1",
@@ -1792,8 +1792,8 @@ Ha összevetjük a \ref{fig:funDep} ábrán látható eredményt a \ref{testDepF
 
 A modul függőségek tesztelésének is a \ref{testdependencyERL} fájlt fogjuk használni, hiszen ez a fájl modul szinten függ az \lstinline{erlang} és a \lstinline{io} moduloktól is, nézzük meg ezt először egy RefactorErl Shell interfészbeli lekérdezés segítségével.
 
-\lstset{caption=Függvány függőség lekérdezésének eredménye, label=src:shell} \label{testDepFunSHELL2}
-\begin{lstlisting}[language={shell}]  
+\lstset{caption=Függvány függőség lekérdezésének eredménye, label=src:sh} \label{testDepFunSHELL2}
+\begin{lstlisting}[language={sh}]  
 (referl@fikoMac)3> ri:print_dep([{level, mod}, {starting_nodes, ["dependency"]}]).              
 {ok,[{"erlang",[]},
      {"dependency",["io","erlang"]},
@@ -1834,8 +1834,8 @@ test() ->
 Tekintsük meg a következő \ref{testDynCallSHELL} Shell részletet. Láthatjuk, hogy a \lstinline{test} nevű függvény egyszer teszt formájában meghívásra kerül, míg máskor \lstinline{apply/3} segítségével értékelődik ki.
 
 
-\lstset{caption=Függvény dinamikus hívásainak lekérdezésének eredménye, label=src:shell} \label{testDynCallSHELL}
-\begin{lstlisting}[language={shell}]  
+\lstset{caption=Függvény dinamikus hívásainak lekérdezésének eredménye, label=src:sh} \label{testDynCallSHELL}
+\begin{lstlisting}[language={sh}]  
 (referl@fikoMac)7> ri:q("mods[name=calls].funs[name=test].references").
 calls:test/0
     apply(calls, test, [])
