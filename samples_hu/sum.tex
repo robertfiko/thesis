@@ -1,12 +1,14 @@
 \chapter{Összegzés}
 \label{ch:sum}
 
-\section{Áttekintés}
 
-A projektet véleményem szerint sikerült értékesen zárni. Az elkészült szoftverkomponensek harmóniában működnek együtt, ezzel segítve az Erlang programozók munkáját. Az elkészült program egy hiányt tölt be olyan tekintetben, hogy a már elérhető elemező eszközök képességeit ötvözve valami hasznosabbat kapjunk. Úgy gondolom, hogy az a tény, hogy RefactorErl-es interfész modulok már az Elrang LS legújabb verziójában benne vannak.
+A szakdolgozatomban integráltam az RefactorErl elemzői, diagnosztikai képességeit az Erlang LS kiszolgálóba, így azokat szélesebb körben elérhetővé téve. Ezen kívül elkészítettem egy újabb felhasználói felületet a RefactorErl számára. Ebben az új felületben lehetőség van egyenesen a szerkesztőből, a kódbázisból beépített lekérdezéseket, illetve egyedi szemantikus lekérdezéseket is adni, melyek eredményét szintén a forráskkódban láthatjuk, az egyszerű fa nézetű listában. A függőségi gráffal kapcsolatos információkat szintén a szerkesztőből, vagy kódakciók segítségével akár a kódbázisból is kérhetünk, s az eredményt is megtudjuk tekinteni a szoftveren belülről.
 
-A kivitelezés során rengeteget tanultam az Erlangról, architektúrákról és a TypeScr
 
-Aliquam suscipit dignissim tempor. Praesent tortor libero, feugiat et tellus porttitor, malesuada eleifend felis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam eleifend imperdiet lorem, sit amet imperdiet metus pellentesque vitae. Donec nec ligula urna. Aliquam bibendum tempor diam, sed lacinia eros dapibus id. Donec sed vehicula turpis. Aliquam hendrerit sed nulla vitae convallis. Etiam libero quam, pharetra ac est nec, sodales placerat augue. Praesent eu consequat purus.
+A projektet véleményem szerint sikerült értékesen zárni. Az elkészült szoftverkomponensek harmóniában működnek együtt, ezzel segítve az Erlang programozók munkáját. Az elkészült program egy hiányt tölt be olyan tekintetben, hogy a már elérhető elemező eszközök képességeit ötvözve valami hasznosabbat kapjunk. Úgy gondolom, hogy az, hogy RefactorErl-es interfész modulok már az Erlang LS legújabb verziójában benne vannak, ezt csak alátámasszák.
 
 \section{Továbbfejlesztési lehetőségek}
+
+A függőségi gráfoknál jelenleg csak a szöveges és SVG alapú megjelenítés támogatott, azonban meg lehetne oldalni, hogy legyen lehetőség reszponzív okosgráfok megjelenítésére is (\textit{Smart Graph}). 
+
+Az Erlang LS oldalán akár mégtöbb beépített diagnosztikát is lehetne adni, továbbá a kódakciók tárházában is el lehet merülni, hiszen például refaktoráló akciókat nem is implementáltam. Az ELS tekintetében még egy \textit{plugin architektúra} kifejlesztése lehetőséget biztosítana arra, hogy harmadik féltől származó diagnosztikai kiszolgálók adatot tudjanak közleni egyszerűen az ELS-be. 

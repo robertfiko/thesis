@@ -4,7 +4,6 @@
 \label{ch:impl}
 
 
-\section{Megoldandó feladat}
 \section{Használt eszközök és környezetek} \label{usedTechnologies}
 \subsection{Erlang nyelv}
 Az 1980-as évek közepén az Ericsson Számítógép Laboratóriuma azt a feladatot kapta, hogy alkossa meg azt a platformot, ami képes lesz a következő generációs telekommunikációs eszközök kezelésére. Joe Armstrong, Robert Virding, és Mike Williams Bjarne Däcker felügyelete mellett végül megalkották az Erlang porgramozási nyelvet. Ugyan sok már meglévő nyelvet megvizsgáltak, és volt köztük néhány igen ígéretes jelölt, de egyik sem tartalmazta az összes olyan funkciót, ami elvárt volt. A nyelvre hatással volt az ML és Miranda funkcionális nyelvek, valamint olyan konkurens nyelvek, mint az ADA, Chill vagy a Module, illetve a Prolog logikai programozási nyelv. Az első Prolog alapú Erlang virtuális gép prototípus négy év alatt készült el. Végül az Ericsson 1998 decemberében a nyelvet nyílt forrásúvá tette, így bárki számára elérhető lett \cite{erlangBook}.
@@ -14,9 +13,9 @@ Az Erlang nyelv a nagy hibatűrő képességének, magas szintű konkurencia tá
 
 \subsection{TypeScirpt}
 
-A TypeScript egy multi-paradigma programozási nyelv, ami lényegében a JavaScirpt nyelvet egészíti ki olyan szintaxis elmekkel, amik segítségével statikus típusozást tudunk elvégezni. TypeScriptben van lehetőségünk szerver- és kliensoldalon is programozni, a különböző keretrendszereknek köszönhetően. A TypeScript kódot futtatás előtt le kell fordítanunk. Itt a fordító elvégzi a szükséges szintaktikus és szemantikus elemzéseket, majd a típus definíciók és megszorítások eltávolítása után előáll a JavaScirpt forrás, amit már a megszokott JavaScript környezetekben futtathatunk \cite{webpageTS} \cite{wikipediaTS}.
+A TypeScript egy multi-paradigma programozási nyelv, ami lényegében a JavaScirpt nyelvet egészíti ki olyan szintaxis elmekkel, amelyek segítségével statikus típusozást tudunk elvégezni. TypeScriptben van lehetőségünk szerver- és kliensoldalon is programozni, a különböző keretrendszereknek köszönhetően. A TypeScript kódot futtatás előtt le kell fordítanunk. Itt a fordító elvégzi a szükséges szintaktikus és szemantikus elemzéseket, majd a típus definíciók és megszorítások eltávolítása után előáll a JavaScirpt forrás, amit már a megszokott JavaScript környezetekben futtathatunk \cite{webpageTS} \cite{wikipediaTS}.
 
-Így egy fenntarthatóbb, könyebben kezelhető kódbázist kapunk, illetve a hibákat is előbb kitudjuk szúrni, ha megfelelő típusokat vezetünk be és használunk.
+Így egy karbantarthatóbb, könyebben kezelhető kódbázist kapunk, illetve a hibákat is előbb kitudjuk szúrni, ha megfelelő típusokat vezetünk be és használunk.
 
 \subsection{Visual Studioc Code API}
 A Visual Studio Code egy nyílt forráskódú editor (szekresztő), amit a Microsoft fejleszt és tart karban. A teljes szoftvert olyan elsősorban weben ismert nyelvekkel írták, mint TypeScript, JavaScript, HTML és CSS, ezzel is segítve azt, hogy a legtöbb platformon elérhető legyen \cite{wikipediaVSCODE}.
@@ -29,7 +28,7 @@ A WebSocket egy számítógépes kommunikációs protokoll, ami teljes duplexit�
 A portokoll segítségével a kliens és a szerver között mindkét irányban küldhetünk adatot, így nem szükséges a hagyományos kérés-válasz (\textit{request-response}) modellhez alkalmazkodni. Ilyen WebSocket alapú kommunikcáió van a Visualiser bővítmény és a RefactorErl között. 
 
 \subsection{Remote Procedure Calls}
-A Remote Procedure Call-nak (RPC), vagyis a távoli eljáráshívásnak a lényege az, hogy egy alkalmazás száméra meghívjon egy függvényt, ami egy távoli számítogépen van implementálva és végre hajtva, úgy mintha lokálisan, helyileg elérhető lenne. A fejlesztőnek megfelelően definiálnia kell a modult és a függvényt, amit végre kíván hajtani a távoli rendszeren, majd a távoli számítógép egy RPC alrendszere ezt a hívást futtatható kóddá alakítja és végrehajta a távoli hívást \cite{distributedSystems}.
+A Remote Procedure Call-nak (RPC), vagyis a távoli eljáráshívásnak a lényege az, hogy egy alkalmazás  meghívjon egy függvényt, ami egy távoli számítógépen van implementálva és végre hajtva, úgy mintha lokálisan, helyileg elérhető lenne. A fejlesztőnek megfelelően definiálnia kell a modult és a függvényt, amit végre kíván hajtani a távoli rendszeren, majd a távoli számítógép egy RPC alrendszere ezt a hívást futtatható kóddá alakítja és végrehajta a távoli hívást \cite{distributedSystems}.
 
 A távoli eljáráshívás igen fontos szerepet játszik az elosztott rendszerekben. Az Erlangban egy \lstinline{rpc} modul segíti a fejlesztők munkáját, aminek a megfelelő felparaméterezésével elvégezhetjük a távoli hívást. Ilyen kapcsolatot alakítottam ki a RefactorErl és az Erlang LS node-jai között.
 
@@ -37,9 +36,9 @@ A távoli eljáráshívás igen fontos szerepet játszik az elosztott rendszerek
 
 \section{Komponensek}
 
-Az elkészült szoftver komponenseit négy fő részre lehet bontani: Erlang LS-beli illesztő modul, RefactorErl-beli illesztő modul, RefactorErl WebSocket komponense és a Visualiser kiegészítő. Ennek vizualizálásra tekintsük meg a \ref{fig:architecture} ábrát. Az ábrán fellelhető négy komponens nem teljese egészében feleltethető meg az előbb felsoroltakhoz.
+Az elkészült szoftver komponenseit négy fő részre lehet bontani: Erlang LS-beli illesztő modul, RefactorErl-beli illesztő modul, RefactorErl WebSocket komponense és a Visualiser kiegészítő. Ennek vizualizálásra tekintsük meg a \ref{fig:architecture} ábrát. Az ábrán fellelhető négy komponens nem teljesen egészében feleltethető meg az előbb felsoroltakhoz.
 
-A két RefactorErl-beli modult nem különböztettem meg az ábrán, hanem összevönt \textit{RefactorErl}-ként jellemeztem. Továbbá az Erlang LS kliensoldali forrásában nem történt változtatás a dolgozat keretein belül, azonban az architektúra megértése szempontjából fontosnak tartottam jelölni.
+A két RefactorErl-beli modult nem különböztettem meg az ábrán, hanem összevont \textit{RefactorErl}-ként jellemeztem. Továbbá az Erlang LS kliensoldali forrásában nem történt változtatás a dolgozat keretein belül, azonban az architektúra megértése szempontjából fontosnak tartottam jelölni.
 
 Az ábrán felsorolásra kerültek a használt kommunikációs protokollok is, amelyekről a \ref{usedTechnologies} részben olvashatunk bővebben.
 
@@ -50,11 +49,13 @@ Az ábrán felsorolásra kerültek a használt kommunikációs protokollok is, a
   \label{fig:architecture}
 \end{figure}
 
+Amint a fenti \ref{fig:architecture} ábrán látható, a Visual Studio Code szerkesztőn belül helyezkedik el a Visualiser komponens, illetve az Erlang LS kliens implementációja. Az Erlang LS kliens és szerver implementációja a Microsoft Language Server Protocol \cite{microsoftLSp} felett kommunikállnak. A RefactorErl és a Visualiser Web Socket segítségével kommunikálnak, mig az Erlang LS szervere és a RefactorErl RCP (Remote Procedure Call) hívásokkal.
+
 \subsection{Erlang LS-beli illesztő modul}
 %\subsubsection{Bevezetés}
 Az Erlang LS-ben egy meglehetősen miniális illesztő modul található, mely az üzleti logika jelentős részét a RefactorErlre bízza, hogy a projekt karbantartóinak minél kevesebb idegen kódot kelljen kezelniük. Az Erlang LS (vagy röviden: ELS) néhány helyen tartalmaz kiegészítéseket, most ezeket fogjuk sorra venni.
 
-Az Erlang LS egy aktív projekt, akár havonta többször is jelenhet meg belőle újabb kiadás, ezárt a fejlesztés során a forrást a 21.2-es verziónál rögzítettem, és azt terjesztettem ki a szükgséges illesztő kódokkal
+Az Erlang LS egy aktív projekt, akár havonta többször is jelenhet meg belőle újabb kiadás, ezért a fejlesztés során a forrást a 0.21.2-es verziónál rögzítettem, és azt terjesztettem ki a szükgséges illesztő kódokkal
 
 A kommunikáció alapját a \lstinline{els_refactorerl_diagnostics} modul adja, ami nagyban függ a \lstinline{els_refatorerl_utils} modultól. Vizsgáljuk meg közelebbről ezen modulokat.
 
@@ -69,7 +70,7 @@ Az \lstinline{els_refactorerl_diagnostics} modul az Erlang LS \lstinline{els_dia
 
 A modul az alábbi típusokat definiálja:
 
-\lstset{caption={Típusdefiníciók az \lstinline{els_refactorerl_diagnostics} modulban}, label=src:erlang}
+\lstset{caption={Típusdefiníciók az \lstinline{els_refactorerl_diagnostics} modulban}, label=src:erlang0elsDiagTypes}
 \begin{lstlisting}[language={erlang}]
 -type refactorerl_diagnostic_alias() :: atom().
 -type refactorerl_diagnostic_result() :: {range(), string()}.
@@ -82,24 +83,24 @@ A modul az alábbi típusokat definiálja:
     \item \lstinline{refactorerl_diagnostic_result}: egy pár, aminek első tagja egy \lstinline{range}, ami egy Erlang LS-beli típus, a második tagja pedig egy sztring (szöveges karakterlánc)
 \end{itemize}
 
-A modul az alábbi függvényeket definiálja:
+\noindent A modul az alábbi függvényeket definiálja:
 
-\begin{itemize}
-    \item \lstinline{-spec is_default() -> boolean().}
+%\begin{itemize}
+\noindent \lstinline{-spec is_default() -> boolean().}
         \begin{itemize}
             \item \textbf{Bemenet}: -
             \item \textbf{Kimenet}: logikai típus, hamis
-            \item \textbf{Leírás}: \textit{callback függvény}, azt mondja meg, hogy alapértelmezett konfigurációval a diagnosztika fusson-e. Esetünk ez hamis értéket fog visszadni.
+            \item \textbf{Leírás}: \textit{callback függvény}, azt mondja meg, hogy alapértelmezett konfigurációval a diagnosztika fusson-e. Esetünkben ez hamis értéket fog visszadni.
         \end{itemize}
      
-    \item \lstinline{-spec run(uri()) -> [els_diagnostics:diagnostic()].}
+\noindent \lstinline{-spec run(uri()) -> [els_diagnostics:diagnostic()].}
         \begin{itemize}
             \item \textbf{Bemenet}: Uniform Resource Identifier, avagy univerzális erőforrás aznosító, rövide URI. Esetünkben ez egy elérési útvonal lesz, ami az adott elemzendő fájlra mutat.
             \item \textbf{Kimenet}: ELS diagnosztikákat tartalmazó lista
             \item \textbf{Leírás}: \textit{callback függvény}, főbelépési pont a diagnosztikák tekintetében. A diagnosztikák RefactorErl elemzéseiből származik.
         \end{itemize}
     
-    \item \lstinline{-spec source() -> binary().}  
+\noindent \lstinline{-spec source() -> binary().}  
         \begin{itemize}
             \item \textbf{Bemenet}: -
             \item \textbf{Kimenet}: A diagnosztika forrása: \textit{RefactorErl}
@@ -107,7 +108,7 @@ A modul az alábbi függvényeket definiálja:
         \end{itemize}
     
    
-    \item \lstinline{-spec enabled_diagnostics() -> [refactorerl_diagnostic_alias()].} 
+\noindent \lstinline{-spec enabled_diagnostics() -> [refactorerl_diagnostic_alias()].} 
         \begin{itemize}
             \item \textbf{Bemenet}: -
             \item \textbf{Kimenet}: Az engedélyzett diagnosztika azonosítók listája
@@ -115,20 +116,22 @@ A modul az alábbi függvényeket definiálja:
         \end{itemize}
     
     
-    \item \lstinline{-spec make_diagnostics([refactorerl_diagnostic_result()]) -> any().} 
+\noindent \lstinline{-spec make_diagnostics([refactorerl_diagnostic_result()]) -> any().} 
         \begin{itemize}
             \item \textbf{Bemenet}: \lstinline{refactorerl_diagnostic_result}-ból álló lista
             \item \textbf{Kimenet}: ELS-beli \lstinline{diagnostic} típusú lista
             \item \textbf{Leírás}: konvertáló függvény amely átalakítja a input (bemenet) listát, úgy, hogy az ELS megtudja jeleníteni
         \end{itemize}
-    \end{itemize}
+%    \end{itemize}
     
-    
-\subsubsection{\lstinline{els_refactorerl_utils} modul}
-A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els_refactorerl_utils}, most nézzük meg ezt a modult, hogy milyen függvényeket definiál:
+  
+\newpage
 
-\begin{itemize}
-    \item \lstinline'-spec referl_node() -> {ok, atom()} | {error, ErrorReason}. '
+\subsubsection{\lstinline{els_refactorerl_utils} modul}
+A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els_refactorerl_utils}-ra, most nézzük meg ezt a modult, hogy milyen függvényeket definiál:
+
+%\begin{itemize}
+    \noindent \lstinline'-spec referl_node() -> {ok, atom()} | {error, ErrorReason}. '
         \begin{itemize}
             \item \textbf{Bemenet}: -
             \item \textbf{Kimenet}: 
@@ -141,7 +144,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline{-spec add(uri()) -> error | ok.}:  Amennyiben az \lstinline{ok} atommal tér vissza, úgy sikeres volt, amennyiben az 
+    \noindent \lstinline{-spec add(uri()) -> error | ok.}:  Amennyiben az \lstinline{ok} atommal tér vissza, úgy sikeres volt, amennyiben az 
     \lstinline{error} atommal, úgy sikertelen
     \begin{itemize}
             \item \textbf{Bemenet}: globális útvonal
@@ -152,7 +155,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline{-spec run_diagnostics(list(), atom()) -> list().}:
+    \noindent \lstinline{-spec run_diagnostics(list(), atom()) -> list().}:
     \begin{itemize}
             \item \textbf{Bemenet}:  első paraméterében adjuk meg azon diagnosztika azonosítóknak listáját amelyeket szeretnénk futtatni, a második paraméterben, pedig a modult, amire az eredmény halmazt szűkíteni kell
             \item \textbf{Kimenet}: még nyers formátumú diagnosztika
@@ -162,7 +165,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline{-spec notification(string(), number()) -> atom().} 
+    \noindent \lstinline{-spec notification(string(), number()) -> atom().} 
         \begin{itemize}
             \item \textbf{Bemenet}: Az egy paraméteres verzió esetében információs üzenetet küldhetünk, s magát az üzenet paraméterül adjuk meg. A két paraméteres verzióban a második paraméterrel pontosítani tudjuk azt, hogy milyen típusú üzenetet szeretnénk. Itt használhatjuk 1,2,3 vagy 4 értékekekt, vagy az erre a célra definiált makrókat:
             \begin{itemize}
@@ -177,7 +180,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline{-spec is_refactorerl(atom()) -> boolean().} 
+    \noindent \lstinline{-spec is_refactorerl(atom()) -> boolean().} 
     \begin{itemize}
             \item \textbf{Bemenet}: Az Erlang node amin feltételezzük, hogy olyan verziójú RefactorErl node fut, ami képes az ELS kommunikálni
             \item \textbf{Kimenet}: igaz érték, amennyiben valóban megfelelő verziójú RefactorErl node fut, különben hamis.
@@ -186,7 +189,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
         
-    \item \lstinline|-spec connect_node({validate |\lstinline{| retry, atom()}\lstinline|) -> {error, disconnected} | \lstinline{|} \lstinline| atom().}| 
+    \noindent \lstinline|-spec connect_node({validate |\lstinline{| retry, atom()}\lstinline|) -> {error, disconnected} | \lstinline{|} \lstinline| atom().}| 
     \begin{itemize}
             \item \textbf{Bemenet}: Az pár első tagjában a stratégiát határozzuk meg: \lstinline{validate} avagy \lstinline{retry}, a második pedig maga a node nevét adjuk meg
             \item \textbf{Kimenet}: \lstinline|{error, disconnected}|, ha nem jött létre kapcsolat, ha pedig igen, akkor \lstinline|{ok, Node}|, ahol a Node az Erlang node, amit megadtunk.
@@ -195,7 +198,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline{-spec source_name() -> binary().}
+    \noindent \lstinline{-spec source_name() -> binary().}
     \begin{itemize}
             \item \textbf{Bemenet}: - 
             \item \textbf{Kimenet}: \lstinline{<<"RefactorErl">>.}
@@ -204,7 +207,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline|-spec variable_orgin(uri(), {number(), number()} ) -> error |\lstinline{| ok.} \lstinline|}|
+    \noindent \lstinline|-spec variable_orgin(uri(), {number(), number()} ) -> error |\lstinline{| ok.} \lstinline|}|
     \begin{itemize}
             \item \textbf{Bemenet}: Első paraméter az útvonal binárosan, a második párban rendre sor és oszlop információ, az adott változóról.
             \item \textbf{Kimenet}: \lstinline{error}, ammenyiben valami hiba történt, \lstinline{ok} ammenyiben mindben rendben.
@@ -213,7 +216,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline|-spec variable_reach(uri(), {number(), number()} ) -> error |\lstinline{| ok.} \lstinline|}|
+    \noindent \lstinline|-spec variable_reach(uri(), {number(), number()} ) -> error |\lstinline{| ok.} \lstinline|}|
     \begin{itemize}
             \item \textbf{Bemenet}: Első paraméter az útvonal binárosan, a második párban rendre sor és oszlop információ, az adott változóról.
             \item \textbf{Kimenet}: \lstinline{error}, ammenyiben valami hiba történt, \lstinline{ok} ammenyiben mindben rendben.
@@ -222,7 +225,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline{-spec dependency_graph(string(), func | mod) -> error | ok.}
+    \noindent \lstinline{-spec dependency_graph(string(), func | mod) -> error | ok.}
     \begin{itemize}
             \item \textbf{Bemenet}: Az első paraméter a függvény vagy modul nevét tartalmazza rendre \lstinline{<modul_neve>:<fuggveny_neve>/<aritas>}, illetve \lstinline{<module_neve>} formában.
             \item \textbf{Kimenet}: lstinline{error}, ammenyiben valami hiba történt, \lstinline{ok} ammenyiben mindben rendben.
@@ -231,23 +234,23 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline{-spec dyncall(module(), function(), arity()) -> error | ok.}
+    \noindent \lstinline{-spec dyncall(module(), function(), arity()) -> error | ok.}
     \begin{itemize}
             \item \textbf{Bemenet}: Rendre modul neve, függvény neve és aritása.
             \item \textbf{Kimenet}:  lstinline{error}, ammenyiben valami hiba történt, \lstinline{ok} ammenyiben mindben rendben.
             \item \textbf{Leírás}: Kiszámolja RPC híváson a RefactorErl node-on egy függvénynek a hivatkozásait. Amennyiben a dinamikus analízis el lett végezve, úgy a dinamikus hívásokat is beleteszi.
         \end{itemize}
 
-\end{itemize}
+%\end{itemize}
 
 
 
 
 \subsubsection{\lstinline{els_diagnostics} modul módosítása}
 
-A fent leírt kettő modul önmagabán még nem elég. Ahhoz, hogy lefussanak, úgy a \lstinline{els_diagnostics:available_diagnostics/0} függvényét is ki kell még egészíteni. Ez a függvény tartalmazza az elérhető diagnosztikák azonosítóit.
+A fent leírt kettő modul önmagabán még nem elég. Ahhoz, hogy lefussanak, úgy a \lstinline{els_diagnostics:available_diagnostics/0} függvényét is ki kell még egészíteni. Ez a függvény tartalmazza az elérhető diagnosztikák azonosítóit, melynek a módosított verzzója látható a \ref{src:erlang0avDiagModif} forráson.
 
-\lstset{caption={Elérhető diagnosztikák módosított verziója}, label=src:erlang}
+\lstset{caption={Elérhető diagnosztikák módosított verziója}, label=src:erlang0avDiagModif}
 \begin{lstlisting}[language={erlang}]
 -spec available_diagnostics() -> [diagnostic_id()].
 available_diagnostics() ->
@@ -273,7 +276,7 @@ Ezen kívül ahhoz, hogy a diagnosztikából olvassunk, az \lstinline{els_config
 \begin{itemize}
 
     \item A modulban van egy típusdefiníció ami a lehetséges konfigurációs kulcsokat tartalmazza. Ehhez hozzáadtam egy újat: \lstinline{refactorerl}, így most már a bővített típus vázlata:
-\lstset{caption={Konfigurációs kulcs, módosított típusdefiníció}, label=src:erlang}
+\lstset{caption={Konfigurációs kulcs, módosított típusdefiníció}, label=src:erlang0ModifyKey}
 \begin{lstlisting}[language={erlang}]
 -type key()   :: apps_dirs
                | apps_paths
@@ -284,7 +287,7 @@ Ezen kívül ahhoz, hogy a diagnosztikából olvassunk, az \lstinline{els_config
  \end{lstlisting}
  
      \item A modulban van egy másik típusdefiníció ami a konfiguráció állapotának tárolására lesz majd alkalmas. Ehhez hozzáadtam egy kulcsot: \lstinline{refactorerl}, amihez tartozó érték pár vagy a \lstinline{notconfigured} atom, vagy egy \textit{map} típus (kulcs-érték párokat tartalmazó szótár-szerű adatszerkezet, amely hatékony kulcs elérést tesz lehetővé). Ez látható az alábbi kódrészletben:
-\lstset{caption={Módosított állapot típus}, label=src:erlang}
+\lstset{caption={Módosított állapot típus}, label=src:erlang0modifyState}
 \begin{lstlisting}[language={erlang}]
 -type state() :: 
 #{ apps_dirs        => [path()]
@@ -297,7 +300,7 @@ Ezen kívül ahhoz, hogy a diagnosztikából olvassunk, az \lstinline{els_config
  \end{lstlisting}
  
  \item Következő lépésben megkell keresni a \lstinline{"refactorerl"} kulcsot a konfigurációs fájlban, majd annak értékét beállítani. Ez látható az alábbi kódrészletben:
-\lstset{caption={Konfigurációs kulcsmegkeresése, majd beállítása}, label=src:erlang}
+\lstset{caption={Konfigurációs kulcsmegkeresése, majd beállítása}, label=src:erlang0elsKeyFind}
 \begin{lstlisting}[language={erlang}]
 ...
 RefactorErl = maps:get("refactorerl", Config, notconfigured),
@@ -312,13 +315,13 @@ Amennyiben a konfigurációs fájlban nem található lilyen kulcs, úgy abban a
 
 Ammeniyben pedig a kulcs sikeresen megtalálható a fájlban úgy, az ELS betölti azt, s rendelkezésnkre adja az eszközölt módosításoknak köszönhetően.
 
-Így már az összes olyan hozzáadott, illetve módosított modult megnéztük, a következő részben a kódakciókat működtető modulokat fogjuk sorra venni. 
+Így már az összes olyan hozzáadott, illetve módosított modult megnéztük, amik a diagnosztikákat működtetik. A következő részben a kódakciókat működtető modulokat fogjuk sorra venni. 
 
 
 \subsubsection{Kódakciók: \lstinline{els_code_action_provider} modul }
 A modulban található egy \lstinline{code_action/3} függvény. Ennek kiértékelése kapcsán állnak elő a lehetséges kódakciók. Ezt a függvényt úgy egészítettem ki, hogy az alapértelmezett ELS kódakciókhoz, hozzáfűzi a RefactorErl-nek szánt akciókat az alábbi módon:
 
-\lstset{caption={\lstinline{code_action/3} kibővített verziója}, label=src:erlang}
+\lstset{caption={\lstinline{code_action/3} kibővített verziója}, label=src:erlang0codeactmod}
 \begin{lstlisting}[language={erlang}]
 -spec code_actions(uri(), range(), code_action_context()) -> [map()].
 code_actions(Uri, Range, Context) ->
@@ -341,7 +344,7 @@ code_actions(Uri, Range, Context) ->
 
 Összességében a kódakció nem más mint egy szótár adatszerkezet, ami tartalmaz egy \lstinline{title}, \lstinline{kind} és \lstinline{command} kulcsot. A \lstinline{title} lényegében egy bináris szöveg, ami a kódakció szövege, címe lesz. A \lstinline{kind}, vagyis a típusát az LSP protokollban definiáltakból tudjuk megválasztani \footnote{\url{https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/\#codeActionKind}}. Itt a \lstinline{<<"refactor">>} opciót használtam. A \lstinline{command} esetében pedig a parancs létrehozásához \lstinline{els_command} modul \lstinline{make_command} függvényét használtam. Az alábbiakban látható erre egy példa.
 
-\lstset{caption=Egy példa a kódakcióra, label=src:erlang}\label{codeActionExample}
+\lstset{caption=Egy példa a kódakcióra, label=src:erlang7codeActionExample}
 \begin{lstlisting}[language={erlang}]
 CodeAction = #{ title =>  Title
               , kind => <<"refactor">>
@@ -350,12 +353,12 @@ CodeAction = #{ title =>  Title
 
 \noindent \textbf{Segdéfüggvények}
 
-\textbf{POI-k az Erlang LS-ben.} Az Erlang LS, a RefactorErlhez hasonlóan elemzi a forráskódot, s a szintaktikai elemeket egy POI struktúrba szervezi. Egy ilyen POI tartalmazza többek között az adott egység kiterjedését és típusát is. A kódakciók kapcsán a POI-k típusára támaszkodtam. Az általam használt típusok:
+\textbf{POI-k az Erlang LS-ben.} Az Erlang LS, a RefactorErlhez hasonlóan elemzi a forráskódot, s a szintaktikai elemeket egy POI struktúrába szervezi. Egy ilyen POI tartalmazza többek között az adott egység kiterjedését és típusát is. A kódakciók kapcsán a POI-k típusára támaszkodtam. Az általam használt típusok:
 \begin{itemize}
-    \item \lstinline{variable}, vagyis változó;
-    \item \lstinline{application}, vagyis függvény alkalmazás, hívás;
-    \item \lstinline{function_clause}, vagyis függvény definíciónak egy ága (amennyiben egyetlen ág van, úgy maga a függvény definíció);
-    \item \lstinline{module}, vagyis modul. definíció.
+    \item \lstinline{variable}, vagyis változó
+    \item \lstinline{application}, vagyis függvény alkalmazás, hívás
+    \item \lstinline{function_clause}, vagyis függvény definíciónak egy ága (amennyiben egyetlen ág van, úgy maga a függvény definíció)
+    \item \lstinline{module}, vagyis modul definíció.
     
 \end{itemize}
 
@@ -385,7 +388,7 @@ CodeAction = #{ title =>  Title
     \begin{itemize}
         \item \textbf{Bemenet:} Az a fájl és tartomány, amire kódakciókat előszeretnénk állítani.
         \item \textbf{Kimenet:} Kódakciókat tartalmazó lista
-        \item \textbf{Leírás:} Az ELS reprezentációjából, kiválogatja függvény hívás és a moduldefiníció típusú egységeket, majd a \lstinline{make_depgraph_action} segítségével elkészíti a rájuk illeszkedő kódakciót.
+        \item \textbf{Leírás:} Az ELS reprezentációjából, kiválogatja függvény hívás és a modul definíció típusú egységeket, majd a \lstinline{make_depgraph_action} segítségével elkészíti a rájuk illeszkedő kódakciót.
     \end{itemize}
     
     
@@ -422,7 +425,7 @@ CodeAction = #{ title =>  Title
 
 Eddigiekben láthattuk azt, hogy maga a kódakció hogyan készül el. Egy ilyen kódakciónak része a parancs hivatkozás. Most pedig nézzük meg, hogyan lesz a parancs létrehozva. Egy parancs így épül fel:
 
-\lstset{caption=Egy példa a parancsra, label=src:erlang}
+\lstset{caption=Egy példa a parancsra, label=src:erlang0commanExample}
 \begin{lstlisting}[language={erlang}]
 -type command() :: #{ title     := binary()
                     , command   := command_id()
@@ -444,7 +447,7 @@ Ezen függvény ágak működése roppant egyszerű. Illesztenek a paraméterekr
 
 Továbbá a modulban megtalálható egy \lstinline{options} nevű függvény, amiben ezen parancsokat regisztrálni kell.
 
-\lstset{caption=\lstinline{els_execute_command_provider:options/0} kibővítése, label=src:erlang}
+\lstset{caption=\lstinline{els_execute_command_provider:options/0} kibővítése, label=src:erlang0commandprovextend}
 \begin{lstlisting}[language={erlang}]
 -spec options() -> map().
 options() ->
@@ -465,12 +468,11 @@ Az \lstinline{els_command:with_prefix} függvénye előállítja azt a parancsaz
 Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így természetesen azzal a kapcsolat folyamatos. Ezen kívül a kommunikáció a RefactorErl node-jával RPC kapcsolaton keresztül történik. 
 
 \subsection{RefactorErl-beli LS modul}
-\subsubsection{Bevezetés}
 \subsubsection{Modul felépítés}
 
 \noindent A modul az alábbi típust definiálja: 
  
-\lstset{caption=\lstinline{referl_els} modulbeli típusdefiníció, label=src:erlang}
+\lstset{caption=\lstinline{referl_els} modulbeli típusdefiníció, label=src:erlang0elsTypeDef}
 \begin{lstlisting}[language={erlang}]
 -type refactorerl_diagnostic_description() :: {string(), string()}.
 \end{lstlisting}
@@ -480,8 +482,8 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
 
 
 
-\begin{itemize}
-    \item \lstinline|-spec refactorerl_diagnostics() -> #{ string() => refactorerl_diagnostic_description() }.|
+%\begin{itemize}
+    \noindent \lstinline|-spec refactorerl_diagnostics() -> #{ string() => refactorerl_diagnostic_description() }.|
     \begin{itemize}
         \item \textbf{Bemenet:} -
         \item \textbf{Kimenet:} diagnosztika azonosítók listája
@@ -490,7 +492,7 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
     
     
     
-    \item \lstinline{-spec add(string()) -> error | ok.}
+    \noindent \lstinline{-spec add(string()) -> error | ok.}
     \begin{itemize}
         \item \textbf{Bemenet:} A hozzáadni kívánt fájl elérési útvonala.
         \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően
@@ -499,7 +501,7 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
     
     
     
-    \item \lstinline{-spec run_diagnostic([atom()], module()) -> [referl_els_utils:common_diagnostic()].}
+    \noindent \lstinline{-spec run_diagnostic([atom()], module()) -> [referl_els_utils:common_diagnostic()].}
     \begin{itemize}
         \item \textbf{Bemenet:} A diagnosztika azonosítók listája, illetve a modul neve amire futtatni szeretnénk.
         \item \textbf{Kimenet:} Egy köztes diagnosztika leíró lista az Erlang LS és a RefactorErl között.
@@ -508,7 +510,7 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
     
     
     
-    \item \lstinline|-spec ping() -> {refactorerl_els, pong}.|
+    \noindent \lstinline|-spec ping() -> {refactorerl_els, pong}.|
     \begin{itemize}
         \item \textbf{Bemenet:} -
         \item \textbf{Kimenet:} \lstinline|{refactorerl_els, pong}|
@@ -516,7 +518,7 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
     \end{itemize}
     
     
-    \item \lstinline|-spec variable_origin(string(), {number(), number()})| \lstinline{ -> ok | error.}
+    \noindent \lstinline|-spec variable_origin(string(), {number(), number()})| \lstinline{ -> ok | error.}
     \begin{itemize}
         \item \textbf{Bemenet:} Elérési útvonal és sor, oszlop páros az adott változó pozíciójának meghatározásához
         \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően
@@ -524,7 +526,7 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
     \end{itemize}
     
     
-    \item \lstinline|-spec variable_reach(string(), {number(), number()})| \lstinline{ -> ok | error.}
+    \noindent \lstinline|-spec variable_reach(string(), {number(), number()})| \lstinline{ -> ok | error.}
     \begin{itemize}
         \item \textbf{Bemenet:} Elérési útvonal és sor, oszlop páros az adott változó pozíciójának meghatározásához
         \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően
@@ -540,28 +542,28 @@ Ezen modulok beépülnek, szerves részét képezik az Erlang LS-nek, így term�
             \item Küldési azonosító: ezzel az azonosítóval lesz elküldve az eredmény a Visualiser felé
             \item Lebegő információ: ez az információ lesz megjelenítve a Visualiserben, amikor a felhasználó a kurzorát a kijelölés fölé viszi.
         \end{enumerate}
-        \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően
-        \item \textbf{Leírás:} A pozició skalárissá alakítása után a \lstinline{refusr_sq:run/3} segítségével lefuttatja a lekérdezést, majd becsomagolja becsomagolja egy a \ref{structQueryRes} forrás részleten is látható objektumba, majd elküldi a \lstinline{referl_vsc_websocket:send2}  -vel
+        \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően.
+        \item \textbf{Leírás:} A pozició skalárissá alakítása után a \lstinline{refusr_sq:run/3} segítségével lefuttatja a lekérdezést, majd becsomagolja becsomagolja egy a \ref{structQueryRes} forrás részleten is látható objektumba, majd elküldi a \lstinline{referl_vsc_websocket:send2}  -vel.
     \end{itemize}
     
 
 
-    \item \lstinline{-spec dynamic_calls(string(), string(), string()) -> ok | error.}
+    \noindent \lstinline{-spec dynamic_calls(string(), string(), string()) -> ok | error.}
     \begin{itemize}
-        \item \textbf{Bemenet:} rendre modul, illetve függvény neve, majd aritása
-        \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően
+        \item \textbf{Bemenet:} rendre modul, illetve függvény neve, majd aritása.
+        \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően.
         \item \textbf{Leírás:} Előállítja a lekérdezést, majd \lstinline{refusr_sq:run/3} segítségével lefuttatja, majd becsomagolja becsomagolja egy a \ref{structQueryRes} forrás részleten is látható objektumba, majd elküldi a \lstinline{referl_vsc_websocket:send2} -vel. \\
         A lekérdezés az alábbi szerkezetű \\ 
         \lstinline{"mods[name=<modul_neve>].funs[name=<fuggveny_neve> and arity=<aritasa>].refs"}
     \end{itemize}
     
     
-    \item \lstinline{-spec dependency_graph(string(), func | mod) -> ok | error.}
+    \noindent \lstinline{-spec dependency_graph(string(), func | mod) -> ok | error.}
     \begin{itemize}
         \item \textbf{Bemenet:} függvény vagy modul neve, illetve típusa. \lstinline{func} amennyiben függvényre végezzük a lekérdezést, \lstinline{mod} amennyiben modulra.
-        \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően
-        \item \textbf{Leírás:} Elküldi a Web Socketen keresztül a \ref{structOptionsForWs} részletben látható csomagolással a futtatáshoz szükséges paraméterek a Visualisernek, majd annak a feladata lesz lefuttatni. \\
-\lstset{caption=Web Socketen keresztül küldött opciók, label=src:erlang}  \label{structOptionsForWs}
+        \item \textbf{Kimenet:} \lstinline{error} vagy \lstinline{ok} az eljárás sikerességétől függően.
+        \item \textbf{Leírás:} Elküldi a Web Socketen keresztül a \ref{structOptionsForWs} részletben látható csomagolással a futtatáshoz szükséges paraméterek a Visualisernek, majd annak a feladata lesz lefuttatni. \\ \newpage
+\lstset{caption=Web Socketen keresztül küldött opciók, label=structOptionsForWs}  
 \begin{lstlisting}[language={erlang}] 
 OptionsForWS = {struct, [
     {"level", "func" | "mod"},
@@ -577,7 +579,7 @@ OptionsForWS = {struct, [
     \end{itemize}
     
    
-\end{itemize}
+%\end{itemize}
 
 
 
@@ -594,14 +596,14 @@ Gondoljunk csak a diagnosztikákra: ebben az esetben kizárólagosan az ELS-el k
 \subsection{RefactorErl-beli WebSocket komponens}
 
 \subsubsection{Bevezetés}
-A következő részekben azon modulokat fogjuk megtekinteni, ami a Web Socketen keresztüli a kommunikációért felelős, legyen szó kérdés-válasz alapú vagy közlés, küldés alapú kommunikációról.
+A következő részekben azon modulokat fogjuk megtekinteni, amik Web Socketen keresztüli a kommunikációért felelős, legyen szó kérdés-válasz alapú vagy közlés, küldés alapú kommunikációról.
 
 \subsubsection{Adatszerkezetek}
-A Web Socketen keresztül bináris formában tudunk adatot küldeni. A könnyű használhatóság érdekében JSON (JavaScipt Object Notion) objektumokat fogunk átküldeni, hiszen ezt a formátumot a TypeScript natívan támogtja, az Erlang pedig a Yaws \lstinline{json2} modulja segítségével használható. Természetesen először szérializálni kell, majd binárissá alakítani.
+A Web Socketen keresztül bináris formában tudunk adatot küldeni. A könnyű használhatóság érdekében JSON (JavaScipt Object Notion) objektumokat fogunk átküldeni, hiszen ezt a formátumot a TypeScript natívan támogtja, az Erlangban pedig a Yaws \lstinline{json2} modulja segítségével használható. Természetesen először szérializálni kell, majd binárissá alakítani.
 
 Legyakrabban JSON szótárakat vagy listákat fogunk átküldeni. A \lstinline{json2:encode/1} függvény az Erlang listákat egyértelműen áttudja alakítani JSON listává, sajnos a szótárak esetében kissé át kell alakítanunk az adatszerkezetünk.
 
-\lstset{caption=Példa szótárak átalakítása, label=src:erlang} \label{mapConvertJson}
+\lstset{caption=Példa szótárak átalakítása, label=mapConvertJson}
 \begin{lstlisting}[language={erlang}] 
 Struct = {struct, [
             {"key", "value"}, 
@@ -611,7 +613,7 @@ Json = json2:encode(Struct),
 ...
 \end{lstlisting}
 
-\lstset{caption=Átalakított példa szótár, label=src:erlang} \label{mapConvertJsonResult}
+\lstset{caption=Átalakított példa szótár, label=mapConvertJsonResult} 
 \begin{lstlisting}[language={erlang}] 
 {
     "key": "value",
@@ -619,10 +621,10 @@ Json = json2:encode(Struct),
 }
 \end{lstlisting}
 
-Amint a fenti \ref{mapConvertJson} kódrészleten látszodik, ahogyan az adatszerkezetünket szervezni kell, hogy a \ref{mapConvertJsonResult} forrásban lévő eredményt kapjuk. Ez alapján látszik, hogy egy olyan párban kell rendezni, melynek első komponense a \lstinline{struct} atom, a második pedig kulcs-érték párok listája.
+Amint a fenti \ref{mapConvertJson} kódrészleten látszódik, ahogyan az adatszerkezetünket szervezni kell, hogy a \ref{mapConvertJsonResult} forrásban lévő eredményt kapjuk. Ez alapján látszik, hogy egy olyan párban kell rendezni, melynek első komponense a \lstinline{struct} atom, a második pedig kulcs-érték párok listája.
 
 
-\lstset{caption=Egy lekérdezés egyetlen elemének reprezentációja, label=src:erlang} \label{structQueryRes}
+\lstset{caption=Egy lekérdezés egyetlen elemének reprezentációja, label=structQueryRes}
 \begin{lstlisting}[language={erlang}]
 {struct, [
             {"fromPosLn", FromPosL},    % kezdo sor
@@ -636,7 +638,7 @@ Amint a fenti \ref{mapConvertJson} kódrészleten látszodik, ahogyan az adatsze
         ]}
 \end{lstlisting}
 
-
+\newpage
 
 \subsubsection{\lstinline{referl_vsc} modul}
 
@@ -660,8 +662,8 @@ A modul jelentős részében a \lstinline{referl_web2} modulra épül. Két inte
 Ez a modul elindítja és leállítja a VSC alkalmazást. Az indításhoz megadható főbb paraméterek:
 
 \begin{itemize}
-    \item \lstinline{yaws_port}: A port, amin keresztül Web Socket kommunikálni fog. Ez alapértelmezetten \lstinline{8002} és a Visualiser bővítmény csak ezen a porton képes kommunikálni
-    \item \lstinline{yaws_listen}: Az IP\footnote{Internet Protocoll} cím, amin keresztül Web Socket kommunikálni fog. Ez alapértelmezetten \lstinline{127.0.0.1} és a Visualiser bővítmény csak ezen a címen képes kommunikálni
+    \item \lstinline{yaws_port}: A port, amin keresztül Web Socket kommunikálni fog. Ez alapértelmezetten \lstinline{8002} és a Visualiser bővítmény csak ezen a porton képes kommunikálni.
+    \item \lstinline{yaws_listen}: Az IP\footnote{Internet Protocoll} cím, amin keresztül Web Socket kommunikálni fog. Ez alapértelmezetten \lstinline{127.0.0.1} és a Visualiser bővítmény csak ezen a címen képes kommunikálni.
     \item \lstinline{yaws_path}: Az a útvonal, ahonnan a Yaws webszervert indítani szeretnénk. 
 
 \end{itemize}
@@ -677,8 +679,8 @@ felelős. A publikus interfésze lényegébe három fő feladatot lát el: socke
 
 \begin{itemize}
     \item \lstinline{get_websockets/0}: visszaadja az aktívnak vélt socketek azonosítóját.\footnote{Socket a listából csak akkor kerül ki, ha egy küldés művelet nem zárult sikerrel, így elképzelhető, hogy még egyszer küldünk zárt vagy hibás socket-re, de többször nem}
-    \item \lstinline{add_websocket/1}: paraméterként adott Socket azonosítót eltárolja
-    \item \lstinline{remove_websocket/1}: paraméterként adott Socket azonosítót eltávolítja
+    \item \lstinline{add_websocket/1}: paraméterként adott Socket azonosítót eltárolja.
+    \item \lstinline{remove_websocket/1}: paraméterként adott Socket azonosítót eltávolítja.
 \end{itemize}
 
 
@@ -690,10 +692,10 @@ Ez a modul felelős a Web Socketen keresztül történő kommunikációért. A p
 \noindent \lstinline{handle_open(WSState, State)} \\
 \noindent Egy Yaws Callback függvény. Akkor kerül meghívásra, amikor egy új Web Socket akar kapcsolódni. A \lstinline{WSState} tartalmazza a Web Socket azonosítóját, ezt eltároljuk későbbre, amikor közlés alapú küldést szeretnénk végrahajtni (például, mert ELS-ből jött a kérés).
 
-\vspace{14pt}
+\vspace{16pt}
 \noindent \textbf{Publikus interfész}
 
-
+\vspace{10pt}
 \noindent \lstinline{handle_message(Message, State)} \\
 \noindent Egy Yaws Callback függvény. Akkor kerül meghívásra, amikor egy üzenet érkezik egy Socket felől. A \lstinline{Message} paraméter három kategóriába sorolható, s így a működése is:
 \begin{itemize}
@@ -755,10 +757,10 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
 
 \noindent \lstinline{-spec create_broadcast_event(list(), term()) -> {text, jsonlike()} \lstinline|}.}|
 \begin{itemize}
-    \item \textbf{Bemenet:} Első paraméter egy esemény azanosító, a második pedig egy olyan adat, amit a \lstinline{json2:encode} függvénye JSON szöveggé tud alakítani
+    \item \textbf{Bemenet:} Első paraméter egy esemény azonosító, a második pedig egy olyan adat, amit a \lstinline{json2:encode} függvénye JSON szöveggé tud alakítani
     \item \textbf{Kimenet:} Egy olyan pár, melynek első tagja a \lstinline{text} atom, illetve a második tagja pedig egy JSON szerű szöveg. 
     \item \textbf{Leírás:} A megadott esemény azonosítóval előállítja azt az adatszerkezetet, amivel az adatot áttudjuk küldeni. Ez lesz a pár második tagja. ez az adatszerkezet valahogy így néz ki:
-\lstset{caption=Esemény alapú küldés szerkezete, label=src:erlang} \label{structQueryRes2}
+\lstset{caption=Esemény alapú küldés szerkezete, label=structQueryRes2}
 \begin{lstlisting}[language={erlang}]
 {struct, [
     {"event", Event},       % esemeny azonosito
@@ -770,10 +772,10 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
 \noindent \lstinline{-spec create_callback_event(undefined | string(), term()) -> ok | error | {text, jsonlike()} \lstinline|}.}|
 \begin{itemize}
     \item \textbf{Bemenet:} Első paraméter egy visszaküldési azanosító, a második pedig egy olyan adat, amit a \lstinline{json2:encode} függvénye JSON szöveggé tud alakítani. \lstinline{undefined} is megengedett.
-    \item \textbf{Kimenet:} egy olyan pár, melynek első tagja a \lstinline{text} atom, illetve a második tagja pedig egy JSON szerű szöveg, vagy maga az \lstinline{ok} vagy \lstinline{error} atomok
+    \item \textbf{Kimenet:} egy olyan pár, melynek első tagja a \lstinline{text} atom, illetve a második tagja pedig egy JSON szerű szöveg, vagy maga az \lstinline{ok} vagy \lstinline{error} atomok.
     \item \textbf{Leírás:} Amennyiben a bemenetnél \lstinline{undefined} értéket kapunk, úgy nem, lehet visszaküldési azonosítóval elküldeni, ekkor a hibát szétküldjük az ismert Socketeknek. Ha ez sikerrel zárult, akkor \lstinline{ok} atom, ha nem akkor \lstinline{error} atomot kapunk vissza. \\ \\ Ha visszaküldési azonosítót kapunk, akkor előállítja azt az adatszerkezetet amivel az adatot áttudjuk küldeni. Ez lesz a pár második tagja, míg az első a \lstinline{text} atom lesz. Ez az adatszerkezet valahogy így néz ki:
 
-\lstset{caption=Visszaküldési azonosítós küldés szerkezete, label=src:erlang} \label{structQueryRes3}
+\lstset{caption=Visszaküldési azonosítós küldés szerkezete, label=structQueryRes3}
 \begin{lstlisting}[language={erlang}]
 {struct, [
     {"callbackId", Event},      % visszakuldesi azonosito
@@ -829,7 +831,7 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
         
         \item \lstinline{construct_poslist_response/3}: egy RefactorErl pozíció válasz listából és egy lebegő információból, illetve egy fájl névből a \lstinline{position_convert/2} meghívásával pozíció listás választ állít elő, melynek szerkezete: (lásd \ref{poslistResp} forrás)
         
-\lstset{caption=Pozíció listás válasz, label=src:erlang} \label{poslistResp}
+\lstset{caption=Pozíció listás válasz, label=poslistResp}
 \begin{lstlisting}[language={erlang}]
  {struct, [
     {"file", File},         % fajl
@@ -858,8 +860,8 @@ Ez a függvény a végre hajtást a \lstinline{monitor_handle_request/2} segédf
 
 \noindent \lstinline{-spec request_class(list()) -> simple | construct | unknow.}
 \begin{itemize}
-    \item \textbf{Bemenet:} egy szöveg, ami a lekérdezés típusát tartalmazza
-    \item \textbf{Kimenet:} a lekérdezés osztálya, ami lehet \lstinline{simple}, \lstinline{construct} vagy ismeretlen (\lstinline{unknow})
+    \item \textbf{Bemenet:} egy szöveg, ami a lekérdezés típusát tartalmazza.
+    \item \textbf{Kimenet:} a lekérdezés osztálya, ami lehet \lstinline{simple}, \lstinline{construct} vagy ismeretlen (\lstinline{unknow}). \newpage
     \item \textbf{Leírás:} egy lekérdezés azonosító alapján megmondja, hogy mely kategóriába sorolható.
     \\ \lstinline{simple} kategória: \lstinline{"databaseSync", "dynamicAnal", "dynamicClear"}
     \\ \lstinline{construct} kategória: \lstinline{"customQueryRequest", "dependencyGraph"}
@@ -910,7 +912,7 @@ A Visualiser is több alkomponensre bontható fel, mely a \ref{fig:visualiserArc
 Ez fő belépési pontja a kiegészítőnek, mindösszesen egyetlen függvénye van: az \lstinline{activate}, ami paraméteréül a Visual Studio Code kontextusát kapja, majd elkezdi aktíválni a bővítményt a következő lépésekkel:
 
 \begin{enumerate}
-    \item Példányosítja a beépített (\lstinline{BuiltInQViewProvider}) és a egyéni lekérdezések (\lstinline{CustomQueryProvider}) megjelenítőit és regisztrálja a szerkesztő számára
+    \item Példányosítja a beépített (\lstinline{BuiltInQViewProvider}) és az egyéni lekérdezések (\lstinline{CustomQueryProvider}) megjelenítőit és regisztrálja a szerkesztő számára
     \item Párosítja a Web Socket felől érkező eseményeket a megfelelő eseménykezelőkkel
     \item A Web View-t vagyis a \lstinline{DependencyGraphView}-t is inicializálja
     \item A szükséges parancsokat a \lstinline{RefactorErlCommands} segítségével beállítja
@@ -941,17 +943,18 @@ Lényegében egyetlen osztályszintű függvént tartalmaz: \lstinline{setComman
     
 \end{itemize}
 
+\newpage
 
 \subsubsection{\lstinline{refactorErlTreeView.ts}}
 
-Ebben a fájlban a \lstinline{ReferlProvider} osztály implementációja és a hozzátartozó segéd típisuok, osztályok és interfészek.
+Ebben a fájlban a \lstinline{ReferlProvider} osztály implementációja és a hozzátartozó segéd típusok, osztályok és interfészek vannak.
 
 
 \vspace{14pt}
-\textbf{ReferlProvider}
+\noindent \textbf{ReferlProvider}
 
 
-Ez az osztály lényegében egy sablon, absztrakt osztály a beépített és az egyedi lekérdezéseknek. Implementálja a \lstinline{vscode.TreeDataProvider} interfészt. Vizsgáljuk meg a nyílvános részei.
+\noindent Ez az osztály lényegében egy sablon, absztrakt osztály a beépített és az egyedi lekérdezéseknek. Implementálja a \lstinline{vscode.TreeDataProvider} interfészt. Vizsgáljuk meg a nyílvános részei.
 
 \begin{itemize}
     \item \lstinline{refresh(data: any): void}: ezen függvénynek adhatjuk paraméterül a frissített adatot amit a fa nézetben megszeretnénk jeleníteni
@@ -961,15 +964,15 @@ Ez az osztály lényegében egy sablon, absztrakt osztály a beépített és az 
 
 
 \vspace{14pt}
-\textbf{ReferlTreeItem}
+\noindent \textbf{ReferlTreeItem}
 
 
-Ez egy egyszerű fa elem, ami minimálisan a \lstinline{vscode.TreeItem} \footnote{\url{https://code.visualstudio.com/api/references/vscode-api##TreeItem}} osztályt bővíti ki. Lényegében egy konstruktora van, amiben rendre megadhatjuk a címet, az alcímet, összecsukási állapotot, a parancsot és az ikonok elérési útját, bár az utóbbi kettő nem kötelező.
+\noindent Ez egy egyszerű fa elem, ami minimálisan a \lstinline{vscode.TreeItem} \footnote{\url{https://code.visualstudio.com/api/references/vscode-api##TreeItem}} osztályt bővíti ki. Lényegében egy konstruktora van, amiben rendre megadhatjuk a címet, az alcímet, összecsukási állapotot, a parancsot és az ikonok elérési útját, bár az utóbbi kettő nem kötelező.
 
 
 
 \vspace{14pt}
-\textbf{ItemDescriptor}
+\noindent \textbf{ItemDescriptor}
 
 
 Egy interfész, amely az alábbi adattagok jelenlétét követeli meg:
@@ -979,22 +982,23 @@ Egy interfész, amely az alábbi adattagok jelenlétét követeli meg:
     \item \lstinline{subtitle}: szöveg
 \end{itemize}
 
+\newpage
+
+\vspace{14pt}
+\noindent \textbf{RangeCommand}
+
+
+\noindent Ez egy egyszerű fa elem, ami minimálisan a \lstinline{vscode.Command} \footnote{\url{https://code.visualstudio.com/api/references/vscode-api##Command}} osztályt bővíti ki. 
+A konstruktorban lényegében egy \lstinline{ItemDescriptor} interfészt implementáló típust kell megadni, ami a parancs argumentumja lesz. A parancshoz a \lstinline{"customQuery.goToLocation"} parancs lesz hozzákötve.
+
+
 
 
 \vspace{14pt}
-\textbf{RangeCommand}
+\noindent \textbf{RangeDescriptor}
 
 
-Ez egy egyszerű fa elem, ami minimálisan a \lstinline{vscode.Command} \footnote{\url{https://code.visualstudio.com/api/references/vscode-api##Command}} osztályt bővíti ki. 
-A konstruktorban lényegében egy \lstinline{ItemDescriptor} interfészt implementáló típust kell megadni ami a parancs argumentumja lesz. A parancshoz a \lstinline{"customQuery.goToLocation"} parancs lesz hozzákötve.
-
-
-
-\vspace{14pt}
-\textbf{RangeDescriptor}
-
-
-Implementálja a lstinline{ItemDescriptor} interfészt. Konstruktora az alábbi paramáterezéssel hívható meg: 
+\noindent Implementálja a \lstinline{ItemDescriptor} interfészt. Konstruktora az alábbi paramáterezéssel hívható meg: 
 
 \begin{itemize}
     \item \lstinline{fromLine} és \lstinline{fromCol}: számok, ez alapján beállítja a kezdő pozíciót egy \lstinline{vscode.Position}-be.
@@ -1014,10 +1018,10 @@ Implementálja a lstinline{ItemDescriptor} interfészt. Konstruktora az alábbi 
 
 
 \vspace{14pt}
-\textbf{NoPosDescriptor}
+\noindent \textbf{NoPosDescriptor}
 
 
-Implementálja a \lstinline{ItemDescriptor} interfészt. Konstruktora egyetlen paramétert fogad, a címet, ami meg legyen jelenítve, hiszen ehez az osztályhoz nem tartozik pozíció így sem fájéra sem pedig lebegő információra nincsen szükség.
+\noindent Implementálja a \lstinline{ItemDescriptor} interfészt. Konstruktora egyetlen paramétert fogad, a címet, ami meg legyen jelenítve, hiszen ehez az osztályhoz nem tartozik pozíció így sem fájlra sem pedig lebegő információra nincsen szükség.
 
 \noindent Ezen kívül még az osztály \lstinline{subtitle} adattagjára beállítja a \lstinline{"No source file"}-t, vagyis, hogy nincsen forrás fájl.
 
@@ -1028,10 +1032,10 @@ Implementálja a \lstinline{ItemDescriptor} interfészt. Konstruktora egyetlen p
 
 
 \vspace{14pt}
-\textbf{ResponseItem}
+\noindent \textbf{ResponseItem}
 
 
-Egy típus, amely az alábbi adattagokkal rendelkezik
+\noindent Egy típus, amely az alábbi adattagokkal rendelkezik
 
 \begin{itemize}
     \item \lstinline{fromPosLn: number}: kezdő sor információ
@@ -1060,7 +1064,7 @@ Egy típus, amely az alábbi adattagokkal rendelkezik
 
 
 \vspace{14pt}
-\textbf{DataStorage}
+\noindent \textbf{DataStorage}
 
 
 \noindent Egy interfész, amely az alábbi függvény implementálását követeli meg:
@@ -1070,29 +1074,18 @@ Egy típus, amely az alábbi adattagokkal rendelkezik
 
 
 
-\subsubsection{\lstinline{builtInQView.ts}}
+\subsubsection{builtInQView.ts}
 
 
 
 \vspace{14pt}
-\textbf{BuiltInQViewProvider}
+\noindent \textbf{BuiltInQViewProvider}
 
 
-Kiterjeszti a \lstinline{ReferlProvider} osztályt. Három függvénye van, amit lényegében a Visual Studio Code API-ja hív meg időről időre. Az egyik a \lstinline{getTreeItem}, ami lényegében visszaadja a paraméterül adott fa item-et. A másikodik pedig a \lstinline{getChildren} ami pedig egy fa item, gyerekeit számolja ki és adja vissza. A harmadik pedig a \lstinline{selectTreeItem} ami pedig alkalmazza rá a dekorációs stílust
-
-
-
+\noindent Kiterjeszti a \lstinline{ReferlProvider} osztályt. Három függvénye van, amit lényegében a Visual Studio Code API-ja hív meg időről időre. Az egyik a \lstinline{getTreeItem}, ami lényegében visszaadja a paraméterül adott fa item-et. A másikodik pedig a \lstinline{getChildren} ami pedig egy fa item, gyerekeit számolja ki és adja vissza. A harmadik pedig a \lstinline{selectTreeItem} ami pedig alkalmazza rá a dekorációs stílust
 
 
 
-
-
-
-\vspace{14pt}
-\textbf{SubTreeItem}
-
-
-Kiterjeszti a \lstinline{ReferlTreeItem} osztályt. Megadja az ikonját és a konstruktora rendre az alábbi paraméterekkel hívható: cím, alcím és az eredmény amihez kapcsolni szeretnénk. Ezen kívül opcionálisan megadható az ikon is, ha nem szeretnénk az alapértelmezetettet használni.
 
 
 
@@ -1100,11 +1093,22 @@ Kiterjeszti a \lstinline{ReferlTreeItem} osztályt. Megadja az ikonját és a ko
 
 
 \vspace{14pt}
-\textbf{BuiltInQDataResponse}
+\noindent \textbf{SubTreeItem}
+
+
+\noindent Kiterjeszti a \lstinline{ReferlTreeItem} osztályt. Megadja az ikonját és a konstruktora rendre az alábbi paraméterekkel hívható: cím, alcím és az eredmény amihez kapcsolni szeretnénk. Ezen kívül opcionálisan megadható az ikon is, ha nem szeretnénk az alapértelmezetettet használni.
 
 
 
-Egy típus, amely az alábbi adattagokkal rendelkezik
+
+
+
+\vspace{14pt}
+\noindent \textbf{BuiltInQDataResponse}
+
+
+
+\noindent Egy típus, amely az alábbi adattagokkal rendelkezik
 
 \begin{itemize}
     \item \lstinline{items: ResponseItem[]}: megjelenítendő adategységek listája
@@ -1116,10 +1120,10 @@ Egy típus, amely az alábbi adattagokkal rendelkezik
 
 
 \vspace{14pt}
-\textbf{BuiltInQDataStorage}
+\noindent \textbf{BuiltInQDataStorage}
 
 
-Implementálja a \lstinline{DataStorage} interfészt. Egyetlen adattagja van a \lstinline{data} ami egy \lstinline{BuiltInQDataResponse} típus. Ez használatos a belső adatreprezentációra. Nézzük meg a függvényeit:
+\noindent Implementálja a \lstinline{DataStorage} interfészt. Egyetlen adattagja van a \lstinline{data} ami egy \lstinline{BuiltInQDataResponse} típus. Ez használatos a belső adatreprezentációra. Nézzük meg a függvényeit:
 
 \begin{itemize}
     \item \lstinline{updateData}: paraméteréül adhatjuk azt az adatot amire frissíteni szeretnénk a tárolt adatot.
@@ -1139,28 +1143,17 @@ Implementálja a \lstinline{DataStorage} interfészt. Egyetlen adattagja van a \
 
 
 
-\subsubsection{\lstinline{customQuery.ts}}
+\subsubsection{customQuery.ts}
 
 Az ebben a fájlban megvalósított osztályok nagyon hasonlítanak a \lstinline{builtInQView.ts} fájlban megvalósítottakhoz, azonban néhány apró helyen különböznek, amiket nem lehetett kiemelni a közös ősbe. Ezen különbségeket \textbf{félkövérrel} a legtöbb helyen kiemeltem.
 
 
 
 \vspace{14pt}
-\textbf{CustomQueryProvider}
+\noindent \textbf{CustomQueryProvider}
 
 
-Kiterjeszti a \lstinline{ReferlProvider} osztályt. Három függvénye van, amit lényegében a Visual Studio Code API-ja hív meg időről időre. Az egyik a \lstinline{getTreeItem}, ami lényegében visszaadja a paraméterül adott fa item-et. A másikodik pedig a \lstinline{getChildren} ami pedig egy fa item, gyerekeit számolja ki és adja vissza. A harmadik pedig a \lstinline{selectTreeItem} ami pedig alkalmazza rá a dekorációs stílust
-
-
-
-
-
-
-\vspace{14pt}
-\textbf{CustomQuerySubTreeItem}
-
-
-Kiterjeszti a \lstinline{ReferlTreeItem} osztályt. Megadja az ikonját és a konstruktora rendre az alábbi paraméterekkel hívható: cím, alcím, az \textbf{összecsukás állapota} és az eredmény amihez kapcsolni szeretnénk. Ezen kívül opcionálisan megadható az ikon is, ha nem szeretnénk az alapértelmezetettet használni.
+\noindentKiterjeszti a \lstinline{ReferlProvider} osztályt. Három függvénye van, amit lényegében a Visual Studio Code API-ja hív meg időről időre. Az egyik a \lstinline{getTreeItem}, ami lényegében visszaadja a paraméterül adott fa item-et. A másikodik pedig a \lstinline{getChildren} ami pedig egy fa item, gyerekeit számolja ki és adja vissza. A harmadik pedig a \lstinline{selectTreeItem} ami pedig alkalmazza rá a dekorációs stílust.
 
 
 
@@ -1168,10 +1161,21 @@ Kiterjeszti a \lstinline{ReferlTreeItem} osztályt. Megadja az ikonját és a ko
 
 
 \vspace{14pt}
-\textbf{ResponseWrapper}
+\noindent \textbf{CustomQuerySubTreeItem}
 
 
-Egy egyszerű típus, amelyre azért van, hogy \textbf{csoportosítsa az eredményeket fájlokként}, hiszen egyedi lekérdezések esetén fájlokként csoportosítjuk és az alábbi adattagokkal rendelkezik:
+\noindent Kiterjeszti a \lstinline{ReferlTreeItem} osztályt. Megadja az ikonját és a konstruktora rendre az alábbi paraméterekkel hívható: cím, alcím, az \textbf{összecsukás állapota} és az eredmény amihez kapcsolni szeretnénk. Ezen kívül opcionálisan megadható az ikon is, ha nem szeretnénk az alapértelmezetettet használni.
+
+
+
+\newpage
+
+
+\vspace{14pt}
+\noindent \textbf{ResponseWrapper}
+
+
+\noindent Egy egyszerű típus, amelyre azért van, hogy \textbf{csoportosítsa az eredményeket fájlokként}, hiszen egyedi lekérdezések esetén fájlokként csoportosítjuk és az alábbi adattagokkal rendelkezik:
 
 \begin{itemize}
     \item \lstinline{file: string}: a fájl
@@ -1187,10 +1191,10 @@ Egy egyszerű típus, amelyre azért van, hogy \textbf{csoportosítsa az eredmé
 
 
 \vspace{14pt}
-\textbf{CustomQueryDataResponse}
+\noindent \textbf{CustomQueryDataResponse}
 
 
-Egy egyszerű típus, amely az alábbi adattagokkal rendelkezik:
+\noindent Egy egyszerű típus, amely az alábbi adattagokkal rendelkezik:
 
 \begin{itemize}
     \item \lstinline{request: string}: a lekérdezés
@@ -1208,11 +1212,11 @@ Egy egyszerű típus, amely az alábbi adattagokkal rendelkezik:
 
 
 \vspace{14pt}
-\textbf{CustomQueryDataStorage}
+\noindent \textbf{CustomQueryDataStorage}
 
 
 
-Implementálja a \lstinline{DataStorage} interfészt. Egyetlen adattagja van a \lstinline{data} ami egy \lstinline{CustomQueryDataResponse} típus. Ez használatos a belső adatreprezentációra. Nézzük meg a függvényeit:
+\noindent Implementálja a \lstinline{DataStorage} interfészt. Egyetlen adattagja van a \lstinline{data} ami egy \lstinline{CustomQueryDataResponse} típus. Ez használatos a belső adatreprezentációra. Nézzük meg a függvényeit:
 
 \begin{itemize}
     \item \lstinline{updateData}: paraméteréül adhatjuk azt az adatot amire frissíteni szeretnénk a tárolt adatot.
@@ -1229,7 +1233,7 @@ Implementálja a \lstinline{DataStorage} interfészt. Egyetlen adattagja van a \
 \end{itemize}
 
 
-\subsubsection{\lstinline{webSocketHandler.ts}}
+\subsubsection{webSocketHandler.ts}
 A következőkben a kommunikáció legfontosabb elemével fogunk megismerkedni, azzal az osztállyal amelyik a Web Socketen keresztüli adatfolyamok küldésével, fogadásával és továbbküldésével foglalkozik. Itt továbbküldés alatt azt a tevékenységet értem, amikor a megfelelő vizuálizációs komponens felé küldi tovább. Tekintsük meg az osztálydiagrammot a \ref{fig:wsDiagram} ábrán, majd kiemelem a fontosabb részeket.
 
 \begin{figure}[H]
@@ -1239,7 +1243,7 @@ A következőkben a kommunikáció legfontosabb elemével fogunk megismerkedni, 
   \label{fig:wsDiagram}
 \end{figure}
 
-Az osztály úgynevezett \textit{singleton} vagyis egyke tervezési mintát követ, tehát mindig csak egy példány lérezhet belőle. Ezt úgy lehet elérni, hogy a konstruktorját privát láthatóságúra állítjuk, így a példányosítása csakis osztályon belül lehetséges. A külső elérést a \lstinline{getInstance} metódus biztosítja, mely amennyiben már van egy példány visszadaj azt, amennyiben nincs létrehoz egyet.
+Az osztály úgynevezett \textit{singleton} vagyis egyke tervezési mintát követ, tehát mindig csak egy példány létezhet belőle. Ezt úgy lehet elérni, hogy a konstruktorát privát láthatóságúra állítjuk, így a példányosítása csakis az osztályon belül lehetséges. A külső elérést a \lstinline{getInstance} metódus biztosítja, mely amennyiben már van egy példány visszadaja azt, amennyiben nincs létrehoz egyet.
 
 Az osztály, s így a teljes bővítmény függ a \textit{jock} álltal fejlesztett SVG bővítménytől. \footnote{\url{https://marketplace.visualstudio.com/items?itemName=jock.svg}} ezen bővítmény segítségével jeleníti meg az SVG gráfokat.
 
@@ -1250,32 +1254,34 @@ Az osztály, s így a teljes bővítmény függ a \textit{jock} álltal fejleszt
     
     \item \lstinline{isConnected(): boolean}: megmondja, hogy van e aktív kapcsolat a Web Socketen keresztül
     
-    \item \lstinline{connect(): Promise<any>}: ezzel kapcsolódhatunk a RefactorErl-hez Web Socketen keresztül. Helyes csatlakozés esetén az igíret (\textit{Promise}) feloldása esetén visszakapjuk az osztálypéldányt
+    \item \lstinline{connect(): Promise<any>}: ezzel kapcsolódhatunk a RefactorErl-hez Web Socketen keresztül. Helyes csatlakozás esetén az ígíret (\textit{Promise}) feloldása után visszakapjuk az osztálypéldányt
     
-    \item \lstinline{connectTryAgain(): Promise<any>}: annyiban más a \lstinline{connect()}-től, hogy megnézi azt, hogy van e kapcsolódási kísérlet folyamatban vagy sem, és folyamatason tájékoztatja a felhasználót a folyamatról. Lényegében amikor a felhasználó megnyomja a \textit{Try again} feliratú gombot a vezérlő pulton ez a metódus hívódik meg a háttérben.
+    \item \lstinline{connectTryAgain(): Promise<any>}: annyiban más a \lstinline{connect()}-től, hogy megnézi azt, hogy van e kapcsolódási kísérlet folyamatban vagy sem, és folyamatasan tájékoztatja a felhasználót a folyamatról. Lényegében amikor a felhasználó megnyomja a \textit{Try again} feliratú gombot a vezérlőpulton ez a metódus hívódik meg a háttérben.
     
-    \item \lstinline{checkConnection(): Promise<boolean>}: leellenőrzi a Web Socket (WS) kapcsolatot a RefactorErl-el és erről tájékoztatja a felhasználót. Lényegében amikor a felhasználó megnyomja a \textit{Check connection} feliratú gombot a vezérlő pulton ez a metódus hívódik meg.
+    \item \lstinline{checkConnection(): Promise<boolean>}: leellenőrzi a Web Socket (WS) kapcsolatot a RefactorErl-el és erről tájékoztatja a felhasználót. Lényegében amikor a felhasználó megnyomja a \textit{Check connection} feliratú gombot a vezérlőpulton ez a metódus hívódik meg.
     
     \item \lstinline{aliveCheck(): Promise<boolean>}: ezzel a metódussal küldi el az \lstinline{alive} kérést a RefactorErl-nek.
     
-    \item \lstinline{subscribe(event: string, fun: (p: any) => void: Promise<any>} feltudunk ezzel iratkozni egy esemény típusra, amit az első paraméterben tudunk megadni, a második paraméterében pedig az esemény lekezeléséhez használt függvényt kell megadni. \\ \\ A belső működése lényegében annyi, hogy egy szótár szerű objektumot tart karban aminek kulcsa az események típusai az értékek pedig az esemény kezelő függvények. Amikor egy bizonyos típusú esemény érkezik Web Socketen keresztül úgy ezen függvényeket sorban lefutatja, paraméterül adva az érkezett adatot.
+    \item \lstinline{subscribe(event: string, fun: (p: any) => void: Promise<any>} feltudunk ezzel iratkozni egy esemény típusra, amit az első paraméterben tudunk megadni, a második paraméterében pedig az esemény lekezeléséhez használni kívánt függvényt kell megadni. \\ \\ A belső működése lényegében annyi, hogy egy szótár szerű objektumot tart karban aminek kulcsa az események típusai az értékek pedig az eseménykezelő függvények. Amikor egy bizonyos típusú esemény érkezik Web Socketen keresztül úgy ezen függvényeket sorban lefuttatja, paraméterül adva az érkezett adatot.
+    
+    \newpage
     
     \item \lstinline{request(requestType: string, data: any): Promise<any>} ezen függvény segítségével tudunk kéréseket adni a RefactorErl felé. Az aszinkronitás kihasználása érdekében egy \textit{Promise} objektumot adunk vissza, ami tartalmazni fogja az eredményt ha elklészült. Paraméterül meg kell adnunk a lekérdezés típusát és az átküldendő adatot.
 
 \end{itemize}
 
-\subsubsection{\lstinline{dependencyGraphView.ts}}
-
-A fájl két típust és egy osztályt definiál. Kezdjük a típusokkal először.
+\subsubsection{dependencyGraphView.ts}
+ 
+\noindent A fájl két típust és egy osztályt definiál. Kezdjük a típusokkal először.
 
 
 
 
 \vspace{14pt}
-\textbf{ViewState}
+\noindent \textbf{ViewState}
 
 
-Ez a típus reprezentál egy nézeti állapotot azálltal, hogy tárolja a gráf és az űrlap állapotát.
+\noindent Ez a típus reprezentál egy nézeti állapotot azálltal, hogy tárolja a gráf és az űrlap állapotát.
 
 \begin{itemize}
     \item \lstinline{graph: GraphState | undefined}: a gráf állapota
@@ -1291,19 +1297,19 @@ Ez a típus reprezentál egy nézeti állapotot azálltal, hogy tárolja a gráf
 
 
 \vspace{14pt}
-\textbf{GraphState}
+\noindent\textbf{GraphState}
 
 
-Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
-
-\noindent \textbf{Amennyiben SVG kiemenetet kaptunk:}
+\noindent Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
+\vspace{12pt}
+\noindent Amennyiben SVG kiemenetet kaptunk:
 \begin{itemize}
     \item \lstinline{status: "ok"}: a lekérdezés sikerességét indikálja
     \item \lstinline{type: "svg"}: a gráf típusát adja meg
     \item \lstinline{path: PathLike} egy elérési útvonalat ad meg az SVG fájlhoz
 \end{itemize}
 
-\noindent \textbf{Amennyiben szöveges kiemenetet kaptunk:}
+\noindent Amennyiben szöveges kiemenetet kaptunk:
 \begin{itemize}
     \item \lstinline{status: "ok"}: a lekérdezés sikerességét indikálja
     \item \lstinline{type: "textual"}: a gráf típusát adja meg
@@ -1311,7 +1317,7 @@ Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
 \end{itemize}
 
 
-\noindent \textbf{Amennyiben hibát kaptunk:}
+\noindent Amennyiben hibát kaptunk:
 \begin{itemize}
     \item \lstinline{status: "failed"}: a lekérdezés sikerességét indikálja
     \item \lstinline{data: string}: a hiba okát, leírását tartalmazza
@@ -1320,10 +1326,10 @@ Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
 
 
 \vspace{14pt}
-\textbf{DependencyGraphView}
+\noindent \textbf{DependencyGraphView}
 
 
-Ez az osztály felelős a függőségi gráfok megjelenítésére szolgáló panel kezelésére. Ezen a panel a Visual Studio Code Webview API-ját használja. Az osztály a szerkesztő API dokumentációjában lévő leírás alapján készült \cite{webViewGuide} és az ottani kezdő projekten alapszik. \footnote{\url{https://github.com/microsoft/vscode-extension-samples/blob/main/webview-sample/README.md}}. 
+\noindent Ez az osztály felelős a függőségi gráfok megjelenítésére szolgáló panel kezelésére. Ezen a panel a Visual Studio Code Webview API-ját használja. Az osztály a kódszerkesztő API dokumentációjában lévő leírás alapján készült \cite{webViewGuide} és az ottani kezdő projekten alapszik. \footnote{\url{https://github.com/microsoft/vscode-extension-samples/blob/main/webview-sample/README.md}}
 
 
 \begin{figure}[H]
@@ -1341,13 +1347,16 @@ A \ref{fig:diagramDepg} ábrán láthatjuk az osztály felépítését, a függv
 \end{itemize}
 
 
-\subsubsection{\lstinline{depgraph.d.ts}}
+\subsubsection{depgraph.d.ts}
 
 A következő fájl egy érdekes darab. Ez egy típus definíciós fájl, ami külön ki lett emelve. Erre azért volt szükség, hogy az izoláltan futó Web View és kiegészítő fejlesztés folyamán azonos típus definíciókkal tudjun készülni, így elősegítve a típushelyes fejlesztést.
 
 
 \vspace{14pt}
-\textbf{TextualGraph}
+\noindent \textbf{TextualGraph}
+
+\noindent Egy egyszerú típusdefiníció, mely az alábbi tagokat tartalmazza:
+
 \begin{itemize}
     \item \lstinline{dependant: string}: az a gráf egység ami a függő. Ez lesz a nyíl baloldalán
     \item \lstinline{dependency: string}: az egység függőségei. Ez lesz a nyíl jobb oldalán.
@@ -1356,17 +1365,17 @@ A következő fájl egy érdekes darab. Ez egy típus definíciós fájl, ami k�
 
 
 \vspace{14pt}
-\textbf{PathLike} 
+\noindent \textbf{PathLike} 
 
-Lényegében egy szinoníma a \lstinline{string}-re
+\noindent Lényegében egy szinoníma a \lstinline{string}-re
 
 
 
 \vspace{14pt}
-\textbf{GraphResponse}
+\noindent \textbf{GraphResponse}
 
 
-Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
+\noindent Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
 
 \noindent Amennyiben SVG kiemenetet kaptunk:
 \begin{itemize}
@@ -1392,8 +1401,8 @@ Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
 
 
 \vspace{14pt}
-\textbf{DependencyGraphState} 
-\\ Az alábbi adattagokat definálja. Tartalmuk a RefactorErl Wiki oldalán pontosabban le vannak írva. \cite{referlWikiDependency}
+\noindent \textbf{DependencyGraphState} 
+\noindent Az alábbi adattagokat definálja. Tartalmuk a RefactorErl Wiki oldalán pontosabban le vannak írva. \cite{referlWikiDependency} Az alábbi adattagokkal rendelkezik:
 \begin{itemize}
     \item \lstinline{type: string}: a gráf típusa
     \item \lstinline{level: string}: a gráf szintje
@@ -1411,9 +1420,9 @@ Ez a típus tárolja a gráf állapotát. Három lehetséges kombináció lehet:
 
 
 \vspace{14pt}
-\textbf{ExtensionMessageParam}
+\noindent \textbf{ExtensionMessageParam}
 
-Olyan adattípus ami akkor használatos, amikor a bővítmény küldd üzenetet a WebView-nak
+\noindent Olyan adattípus ami akkor használatos, amikor a bővítmény küldd üzenetet a WebView-nak. Az alábbi adattagokkal rendelkezik:
 
 \begin{itemize}
     \item \lstinline{command: ExtensionMessageCommands}:
@@ -1428,23 +1437,26 @@ Olyan adattípus ami akkor használatos, amikor a bővítmény küldd üzenetet 
 
 
 \vspace{14pt}
-\textbf{ExtensionMessageCommands}
-Ez a típus az alábbi értékek közül vehet fel egyet: \lstinline{ 'updateResponse' | 'printTextualGraph' | 'textualGraphError' | 'setForm' | 'svgGraphPath'}
+\noindent \textbf{ExtensionMessageCommands}
+
+\noindent Ez a típus az alábbi értékek közül vehet fel egyet: \lstinline{ 'updateResponse' | 'printTextualGraph' | 'textualGraphError' | 'setForm' | 'svgGraphPath'}
 
 
 
 
 \vspace{14pt}
-\textbf{WebViewMessageCommands}
-Ez a típus az alábbi értékek közül vehet fel egyet: \lstinline{ 'dependencyGraph' | 'formState' | 'openSvg'}
+\noindent \textbf{WebViewMessageCommands}
+
+\noindent Ez a típus az alábbi értékek közül vehet fel egyet: \lstinline{ 'dependencyGraph' | 'formState' | 'openSvg'}
 
 
 
 
 
 \vspace{14pt}
-\textbf{WebViewMessageParam}
-Ez a típus üzenet paramétere, amennyiben a Web View küldi el az üzenetet. Több féle szerkezetű lehet:
+\noindent \textbf{WebViewMessageParam}
+
+\noindent Ez a típus, az üzenet paramétere, amennyiben a Web View küldi el az üzenetet. Több féle szerkezetű lehet:
 
 \noindent Amennyiben az űrlap állapotát küldi:
 \begin{itemize}
@@ -1467,11 +1479,9 @@ Ez a típus üzenet paramétere, amennyiben a Web View küldi el az üzenetet. T
 
 
 
-\subsubsection{\lstinline{webviewMain.ts}}
+\subsubsection{webviewMain.ts}
 
-Alapvetően a Web View-nak egy natív Java Scirpt fájlt lehet megadni, mint szkript fájl, azonban azt a  döntést hoztam, hogy a fejlesztése történjen Type Script-ben, így kitudom használni a típus ellenőrzéseket és közös típus interfészt tudok használni a bővítmény többi részével. Ahhoz, hogy ez műkdöjön természetesen elő kellett állítani a Java Script állományt, így a fordítási ciklusba beillesztettem egy komponens fordítást, így ennek fordított verziója is hiánytalanul előáll, és használható.
-
-A fájl lényegében segéd függvényeket tartalmaz. Vegyük ezeket sorra:
+Alapvetően a Web View-nak egy natív Java Scirpt fájlt lehet megadni, mint szkript fájl, azonban azt a  döntést hoztam, hogy a fejlesztése történjen Type Script-ben, így kitudom használni a típus ellenőrzéseket és közös típus interfészt tudok használni a bővítmény többi részével. Ahhoz, hogy ez műkdöjön természetesen elő kellett állítani a Java Script állományt, így a fordítási ciklusba beillesztettem egy komponens fordítást, így ennek fordított verziója is hiánytalanul előáll, és használható. A fájl lényegében segéd függvényeket tartalmaz. Vegyük ezeket sorra:
 
 \begin{itemize}
     \item \lstinline{semicolonSeparatedToArray(value: string)}: paraméteréül kapott pontosvessző álltal szeparált szöveget felbontja.
@@ -1514,7 +1524,9 @@ Ebben a részben a diagnosztikák tesztelésével fogunk foglalkozni, ahol is az
 
 \noindent Tekintsük az alábbi teszt fájlt:
 
-\lstset{caption=\lstinline{show.erl} teszt fájl, label=src:erlang} \label{testShowERL}
+\newpage
+
+\lstset{caption=\lstinline{show.erl} teszt fájl, label=testShowERL}
 \begin{lstlisting}[language={erlang}]  
 -module(show).
 -export([safe_os_call/0, unsafe_os_call/1]).
@@ -1531,7 +1543,7 @@ Ebben az esetben két diagnosztika aktív: \textit{nem használt makrók detekt�
 
 \noindent Először ellenőrizzük le, hogy a RefactorErl Shell felületéből ezen információk valóban megérkeznek.
 
-\lstset{caption=\lstinline{show.erl} teszt fájl diagnosztikai eredményei, label=src:sh} \label{testShowSHELL}
+\lstset{caption=\lstinline{show.erl} teszt fájl diagnosztikai eredményei, label=testShowSHELL} 
 \begin{lstlisting}[language={sh}]  
 (referl@fikoMac)26> ri:ls().                                        
 {{ok,["/Users/fikorobert/Projects/ELS_Referl/els_dev/show.erl"]},{error,[]}}
@@ -1567,9 +1579,11 @@ A \ref{testShowSHELL} részleten láthatjuk, hogy a fájl megfelelően be lett t
 
 Láthatjuk a \ref{fig:showUnsecure} és a \ref{fig:showMacro} ábrán, hogy valóban azok a diagnosztikák jelennek meg azon függvényeknél, amit elvárunk a Shell-es kimenet alapján.
 
+\newpage
+
 \subsection{Kódakciók helyes megjelenítésének ellenőrzése} \label{codeactionIntro}
 
-A kövezkező a tesztesetekben az Erlang LS és a RefactorErl, illetve a Visualiser komponens kapcsolatát teszteljük, azálltal, hogy azon kódakciókat leteszteljük.
+A kövezkező a tesztesetekben az Erlang LS és a RefactorErl, illetve a Visualiser komponens kapcsolatát teszteljük, azálltal, hogy a kódakciókat leteszteljük.
 
 
 Első lépésnek ellenőrizzük le azt, hogy amenyiben a RefactorErl nem fut, valóban nem ad felesleges végre hajtásra nem alkalmas kódakciókat, ehhez az alábbi parancsot futtattam: \lstinline{epmd -names} a visszatérési listában ellenőrizzük le, hogy valóban nem fut RefactorErl példány. 
@@ -1647,7 +1661,7 @@ Korábbiakban (\ref{codeactionIntro} részben) ellenőriztük, hogy valóban meg
 
 \noindent Ehhez az alábbi teszt fájlt használjuk:
 
-\lstset{caption=\lstinline{variables.erl} teszt fájl, label=src:erlang} \label{testVariablesERL}
+\lstset{caption=\lstinline{variables.erl} teszt fájl, label=testVariablesERL}
 \begin{lstlisting}[language={erlang}]  
 -module(variables).
 -export([alpha/1]).
@@ -1679,7 +1693,7 @@ A \ref{testVariablesERL} forrás 14. sorában levő visszatérési \lstinline{Em
 Láthatjuk, a \ref{fig:testVarOr} ábrán, hogy a jobb oldalon meg is jelentek a lehetséges Origin értékek, amik megegyeznek a \ref{testOriginShell} kimenetben találhatóakkal
 
 
-\lstset{caption=Válltozó Origin értéke Shellből, label=src:sh} \label{testOriginShell}
+\lstset{caption=Válltozó Origin értéke Shellből, label=testOriginShell}
 \begin{lstlisting}[language={sh}]  
 (referl@fikoMac)27> ri:q("mods[name=variables].funs[name=execute].vars[name=Emil].refs.origin").    
 Emil
@@ -1694,13 +1708,12 @@ Emil
 ok
 \end{lstlisting}
 
+\newpage
 
 \subsection{Változó Reach értékének kiszámításának tesztelése}
 
 
-Korábbiakban (\ref{codeactionIntro} részben) ellenőriztük, hogy valóban megjelennek a kódakciók, így ezek helyes működését a következő kódakciókkal kapcsolatos teszt esetekben feltételezzük.
-
-\noindent Ehhez szintén a \ref{testVariablesERL} fájlt használjuk.
+Korábbiakban (\ref{codeactionIntro} részben) ellenőriztük, hogy valóban megjelennek a kódakciók, így ezek helyes működését a következő kódakciókkal kapcsolatos teszt esetekben feltételezzük. Ezen teszthez szintén a \ref{testVariablesERL} fájlt használjuk.
  
 
 A \ref{testVariablesERL} forrás 6. sorában levő visszatérési \lstinline{James} változó Reach értékét szeretnénk kiszámítani
@@ -1708,16 +1721,16 @@ A \ref{testVariablesERL} forrás 6. sorában levő visszatérési \lstinline{Jam
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.9\linewidth]{images/testCases/testVarReach.png}
+  \includegraphics[width=0.8\linewidth]{images/testCases/testVarReach.png}
   \caption{Reach kódakció eredményei}
   \label{fig:testVarReach}
 \end{figure}
 
 
-Láthatjuk, a \ref{fig:testVarReach} ábrán, hogy a jobb oldalon meg is jelentek a lehetséges Reach értékek, amik megegyeznek a \ref{testReachShell} kimenetben találhatóakkal
+Láthatjuk, a \ref{fig:testVarReach} ábrán, hogy a bal oldalon meg is jelentek a lehetséges Reach értékek, amik megegyeznek a \ref{testReachShell} kimenetben találhatóakkal
 
 
-\lstset{caption=Válltozó Origin értéke Shellből, label=src:sh} \label{testReachShell}
+\lstset{caption=Válltozó Origin értéke Shellből, label=testReachShell}
 \begin{lstlisting}[language={sh}]  
 (referl@fikoMac)29> ri:q("mods[name=variables].funs[name=beta].vars[name=James].bindings.reach"). 
 James
@@ -1735,7 +1748,7 @@ ok
 
 \subsection{Függvény függőségi gráfjának generálásának tesztelése}
 
-\lstset{caption=\lstinline{dependency.erl} teszt fájl, label=src:erlang} \label{testdependencyERL}
+\lstset{caption=\lstinline{dependency.erl} teszt fájl, label=testdependencyERL}
 \begin{lstlisting}[language={erlang}]  
 -module(dependency).
 
@@ -1762,8 +1775,9 @@ A \ref{testdependencyERL} forrásban, ha a \lstinline{isHundered/1} függvénye 
   \label{fig:funDep}
 \end{figure}
 
+\newpage
 
-\lstset{caption=Függvány függőség lekérdezésének eredménye, label=src:sh} \label{testDepFunSHELL}
+\lstset{caption=Függvány függőség lekérdezésének eredménye, label=testDepFunSHELL}
 \begin{lstlisting}[language={sh}]  
 (referl@fikoMac)2> ri:print_dep([{level, func}, {starting_nodes, ["dependency:isHundered/1"]}]).
 {ok,[{"dependency:hello/0",["io:format/1"]},
@@ -1782,7 +1796,7 @@ Ha összevetjük a \ref{fig:funDep} ábrán látható eredményt a \ref{testDepF
 
 A modul függőségek tesztelésének is a \ref{testdependencyERL} fájlt fogjuk használni, hiszen ez a fájl modul szinten függ az \lstinline{erlang} és a \lstinline{io} moduloktól is, nézzük meg ezt először egy RefactorErl Shell interfészbeli lekérdezés segítségével.
 
-\lstset{caption=Függvány függőség lekérdezésének eredménye, label=src:sh} \label{testDepFunSHELL2}
+\lstset{caption=Függvány függőség lekérdezésének eredménye, label=testDepFunSHELL2} 
 \begin{lstlisting}[language={sh}]  
 (referl@fikoMac)3> ri:print_dep([{level, mod}, {starting_nodes, ["dependency"]}]).              
 {ok,[{"erlang",[]},
@@ -1807,7 +1821,7 @@ A \ref{fig:depMod} ábrán is látható, hogy a megfelelő eredményt kaptuk. Ez
 
 A dinamikus függvény hívások teszteléséhez az alábbi \ref{testDynCallERL} fájlt fogjuk használni.
 
-\lstset{caption=\lstinline{calls.erl} teszt fájl, label=src:erlang} \label{testDynCallERL}
+\lstset{caption=\lstinline{calls.erl} teszt fájl, label=testDynCallERL} 
 \begin{lstlisting}[language={erlang}]  
 -module(calls).
 
@@ -1824,7 +1838,7 @@ test() ->
 Tekintsük meg a következő \ref{testDynCallSHELL} Shell részletet. Láthatjuk, hogy a \lstinline{test} nevű függvény egyszer teszt formájában meghívásra kerül, míg máskor \lstinline{apply/3} segítségével értékelődik ki.
 
 
-\lstset{caption=Függvény dinamikus hívásainak lekérdezésének eredménye, label=src:sh} \label{testDynCallSHELL}
+\lstset{caption=Függvény dinamikus hívásainak lekérdezésének eredménye, label=testDynCallSHELL} 
 \begin{lstlisting}[language={sh}]  
 (referl@fikoMac)7> ri:q("mods[name=calls].funs[name=test].references").
 calls:test/0
@@ -1841,5 +1855,110 @@ A következő \ref{fig:dynCall} ábrán is látható, hogy a megfelelő eredmén
   \caption{Modul függőség kódakció eredményei}
   \label{fig:dynCall}
 \end{figure}
+
+\newpage
+
+\subsection{Egységtesztek}
+
+A korábbiakban felsoroltakon túl egységtesztek is készültek. Első körben tekintsük meg az Erlang LS-beli teszteket.
+
+\subsubsection{Erlang LS tesztek}
+
+Az Erlang LS-ben úgynevezett \textit{Common Test}-ek \cite{testCT} segítségével tesztelünk. Ennek az az előnye, hogy tesz csoportokban tudjuk rendezni az egységteszteket. A tesztelés első lépése a RefactorErl mockolása volt. Ehhez a \lstinline{meck} könyvtár \cite{testMeck} használatos az ELS-ben, így én is ezt használtam. 
+
+Mivel itt nem a diagnosztikák tartalma a lényeges, hiszen azért a RefactorErl felel, hanem az, hogy amit a RefactorErl küld, az helyesen legyen megjelenítve, ezért \lstinline{els_refactorerl_utils:run_diagnostics/2} függvényt úgy mockoltam, hogy minden esetben ugyanazzal a diagnosztikával térjen vissza.
+
+Lényegében a teszt eset mockolja a RefactorErlt, majd lefuttatja a diagnosztikákat és összeveti a az elvárttakkal. Ez a teszt eset a belső függvények helyességét teszteli.
+
+\noindent A tesztek futtatáshoz az alábbi parancsot kell használnuk
+
+\noindent \lstinline{ rebar3 ct --dir /Users/fikorobert/Projects/ELS_Referl/vscode/erlang_ls/apps/els_lsp/test/ --suite els_diagnostics_SUITE --case unused_macros_refactorerl}
+
+\noindent Ahol természetesen a \lstinline{--dir} kapcsoló után a teszt eseteket tartalmazó mappának az elérését kell megadni. A \lstinline{--suite els_diagnostics_SUITE --case unused_macros_refactorerl} kapcsolók összességével pedig csak a RefactorErl-re specifikus eseteket futtatja.
+
+\noindent Kimenete a fordítási lépések után:
+
+\noindent \lstinline{%%% els_diagnostics_SUITE: .} \\
+\lstinline{All 1 tests passed.}
+
+\subsubsection{RefactorErl tesztek}
+
+A RefactorErl-ben az EUnit \cite{testEunit} tesztelő keretrendszert használjuk, így én is ebben írtam meg a teszteket. 
+
+A tesztelés során az alábbi három fájl áll rendelkezésre, melyet a teszt fájlban definiálva adtam meg.
+
+\newpage
+
+\lstset{caption={Teszt fájlok}, label=src:erlang1}
+\begin{lstlisting}[language={erlang}]
+alphaMod() -> 
+    {module, ?MISC:canonical_filename("alphamod.erl"),
+        "-module(alphamod).\n"
+        "-export([foo/0]).\n"
+        "foo() -> a().\n"
+        "a() ->\n"
+        "    b(),\n"
+        "    c().\n"
+        "b() -> ok.\n"
+        "c() -> betamod:x().\n" }.
+
+betaMod() -> 
+    {module, ?MISC:canonical_filename("betamod.erl"),
+        "-module(betamod).\n"
+        "-define(ALPHA_MACRO, alpha)."
+        "-export([x/0]).\n"
+        "bar() -> x().\n"
+        "x() -> ok.\n" }.
+
+gammaMod() -> 
+    {module, ?MISC:canonical_filename("gammamod.erl"),
+        "-module(gammamod).\n"
+        "-define(ALPHA_MACRO2, alpha)."
+        "-export([x/1]).\n"
+        "x(A) -> os:cmd(A).\n" }.
+\end{lstlisting}
+
+
+\noindent Az alábbi teszteseteket definiáltam:
+
+\begin{itemize}
+    \item \lstinline{query_test} annak a tesztelése, hogy \lstinline{referl_els_utils} modul \lstinline{query} függvénye helyesen futtatja-e a teszteket.
+    
+    \item \lstinline{range_test} annak a tesztelése, hogy \lstinline{referl_els_utils} modul \lstinline{range} függvénye helyes \textit{range} típust állít-e elő.
+    
+    \item \lstinline{graph_test} annak a tesztelése, hogy \lstinline{referl_els_utils} modul \lstinline{graph} függvénye helyes gráfot állít-e elő.
+    
+    \item \lstinline{textual_graph_convert_test} annak a tesztelése, hogy \lstinline{referl_els_utils} modul \lstinline{textual_graph_convert} függvénye az érkezett gráfot helyesen alakítja-e át.
+    
+    
+    
+    
+    
+    \item \lstinline{add_test} annak a tesztelése, hogy \lstinline{referl_els} modul \lstinline{add} függvénye a helyesen adja-e hozzá a kért fájlt
+    
+    \item \lstinline{run_diagnostic_test} annak a tesztelése, hogy \lstinline{referl_els} modul \lstinline{run_diagnostic} függvénye a helyesen diagnoszzikákat ad-e vissza az egyes fájlokról
+    
+    \item \lstinline{ping_test} annak a tesztelése, hogy \lstinline{referl_els} modul \lstinline{ping} függvénye a helyesen visszatérési értéket ad-e.
+    
+\end{itemize}
+
+
+\noindent A tesztek futtatáshoz az alábbi parancsot kell használnuk a RefactorErl shell-jében.
+
+\noindent \lstinline{ reftest_vsc:test(). } 
+
+\noindent Majd a kimenet:
+
+\noindent \lstinline{(referl@fikoMac)31> } 
+
+\noindent \lstinline{  All 7 tests passed.} 
+
+\noindent \lstinline{ok} 
+
+
+
+
+
+
 
 

@@ -29,7 +29,7 @@ A fejlesztés mac OS operációs rendszeren történt, így a legtöbb helyen a 
 
 \subsection{Erlang/OTP telepítése}
 
-Mind a RefactorErl futtatásához, mind az Erlang LS futtatasához szükségünk van az Erlang virtuális gép telepítéséhez. Ezt macOS operációs rendszer legegyszerűbben a Homebrew \cite{homebrew} nevű csomagkezelővel tehetjük meg az alábbi parancs kiadásával:
+Mind a RefactorErl futtatásához, mind az Erlang LS futtatasához szükségünk van az Erlang virtuális gép telepítéséhez. Ezt macOS operációs rendszeren legegyszerűbben a Homebrew \cite{homebrew} nevű csomagkezelővel tehetjük meg az alábbi parancs kiadásával:
 
 \noindent \lstinline{brew install erlang}
 
@@ -44,13 +44,13 @@ További információért keressük fel a GNU/GCC hivatlos oldalát. \cite{gnuGc
 \subsection{Graphviz telepítése}
 A GraphViz telepítése opcionális, azonban a gráfok kirajzolásához szükséges. Ezt szintén legegyszerűbben az operációs rendszerünk csomagkezelőjével tehetjük meg. Amennyiben további információra van szükségünk, keressük fel a GraphViz oldalát \cite{graphviz}, ahol telepítő csomagok és parancsok is rendelkezésre állnak.
 Mac OS operációs rendszer alatt, használhatjuk az alábbi parancsot:
-\noindent \lstinline{brew install graphviz}
+.\noindent \lstinline{brew install graphviz}
 
 \subsection{Yaws webszerver telepítése}
 A YAWS\footnote{Yet Anothet Web Server} forráskódja letölthető és telepíthető a GitHub oldalukról \cite{yawsGithub}, ahol a \lstinline{README} fájlban megtalálhatóak a telepítéshez szükséges utasítások.
 
 Mac OS operációs rendszer alatt használhatjuk a Homebrew csomagkezelőt \cite{homebrew} is, az alábbi parancs kiadásával:
-\noindent \lstinline{brew install yaws}
+\noindent \lstinline{brew install yaws}.
 
 \subsection{RefactorErl telepítése}
 A RefactorErl hivatalos kiadása letölthető az eszköz honlapjáról \cite{refactorErlWebsite}, azonban a \textit{szakdolgozat készítésének időpontjában a publikus verzióban a szükséges modulok még nem elérhetőek, de a következő kiadásban jelen lesznek}. Természetesen a szükséges modulokat tartalmazó verzió megtalálható a szakdolgozat mellékleteként.
@@ -58,7 +58,7 @@ A RefactorErl hivatalos kiadása letölthető az eszköz honlapjáról \cite{ref
 Telepítéshez csomagoljuk ki a RefactorErl forrását tartalmazó tömörített állományt, majd lépjünk be a gyökérkönyvtárába.
 
 \noindent Telepítés Windowson: \lstinline{bin\referl -build tool -yaws_path path\to\yaws}
-\noindent Telepítés Linuxon: \lstinline{bin/referl -build tool -yaws_path path/to/yaws}
+\noindent Telepítés Linuxon és mac OS-en: \lstinline{bin/referl -build tool -yaws_path path/to/yaws}
 
 Ahol a \lstinline{-yaws_path} kapcsoló utána a YAWS \lstinline{ebin} könyvtárának elérhetőségét kell megadni. 
 
@@ -90,7 +90,7 @@ A bővített verzió forráskódja megtalálható a dolgozat csatolmányai köz�
 Az első elidulás előtt az Erlang LS konfigurációs \cite{erlangLsConfig} fájljában néhány módosítást kell végeznünk, hogy az megfelelően illeszkedjen a RefactorErlhez. A konfigurációs fájl YAML formátumot követ. 
 A diagnosztikák futtatásához vegyük fel a \lstinline{refactorerl} elemet az engedélyezettek közé. 
 
-\lstset{caption={RefactorErl diagnosztikák engedélyezése Erlang LS-ben}, label=src:yaml}
+\lstset{caption={RefactorErl diagnosztikák engedélyezése Erlang LS-ben}, label=src:yaml1}
 \begin{lstlisting}
 diagnostics:
   enabled:
@@ -102,12 +102,12 @@ diagnostics:
 Ezzel a beállítással az Erlang LS már futtatni fogja a diagnosztikákat, azonban alapértelmezetten egyetlen diagnosztikai sem fog futni, ezeket manuális allíthatjuk be. Ehhez vegyünk fel egy \lstinline{refactorerl} kulcsot a fájl gyökerébe. Ez alá két \textit{alkulcs} kerülhet:
 \begin{itemize}
     \item \lstinline{node}: ide annak az Erlang node-nak a nevét kell megadni szöveges karakterláncként, ahol a RefactorErl fut. 
-    \item \lstinline{diagnostics}: azon diagnosztikák azonosítói, amelyeket futtatni szeretnék listaként (felsoroláskén) megadva. A dignosztikák azonosítói szintén szöveges karakterláncok.
+    \item \lstinline{diagnostics}: azon diagnosztikák azonosítói, amelyeket futtatni szeretnénk listaként (felsorolásként) megadva. A dignosztikák azonosítói szintén szöveges karakterláncok.
 \end{itemize}
 
 Példa egy ilyen konfigurációs fájl részletre:
 
-\lstset{caption={RefactorErl konfigurációs példa Erlang LS-ben}, label=src:yaml}
+\lstset{caption={RefactorErl konfigurációs példa Erlang LS-ben}, label=src:yaml2}
 \begin{lstlisting}
 diagnostics:
   enabled:
@@ -168,13 +168,13 @@ Ezen kívül az \lstinline{ri:ls().} paranccsal lekérhetjük a beolvasott fájl
 
 
 \subsection{Diagnosztikák használata}
-Az Erlang LS a diagnosztikákat az adott szerkesztőben figyelmeztetésként jeleníti meg. Ugyan ez a funckionalitás \textbf{minden ELS-el kompatibilis szerkesztőben meg fog jelenni}, most a példák során a Visual Studio Code szerkesztőre fogunk fókuszálni. Miután a konforgurációs fájlban mindent beállítotunk (ld. \ref{ELSfirst} bekezdés) nincs más dolgunk, mint betölteni egy forráskódot és megtekinteni az eredményt.
+Az Erlang LS a diagnosztikákat az adott szerkesztőben figyelmeztetésként jeleníti meg. Ugyan ez a funckionalitás \textbf{minden ELS-el kompatibilis szerkesztőben meg fog jelenni}, most a példák során a Visual Studio Code szerkesztőre fogunk fókuszálni. Miután a konforgurációs fájlban mindent beállítotunk (ld. \ref{ELSfirstStart} bekezdés) nincs más dolgunk, mint betölteni egy forráskódot és megtekinteni az eredményt.
 
 \subsubsection{Példa: Nem használt makró definíciók}
 
-Az alábbiakban a \lstinline{unused_macros} azonisítójú diagnosztikát fogjuk áttekinteni. Ehhez nézzük meg alábbi a forrást:
+Az alábbiakban a \lstinline{unused_macros} azonosítójú diagnosztikát fogjuk áttekinteni. Ehhez nézzük meg alábbi a forrást:
 
-\lstset{caption={Nem használt makró definíciókkal eláttot szemléltető kód}, label=src:erlang}
+\lstset{caption={Nem használt makró definíciókkal eláttot szemléltető kód}, label=src:erlang0unusedMacrosExampleCode}
 \begin{lstlisting}[language={Erlang}]
 -module(show).
 -define(PRIME, 7).
@@ -194,9 +194,9 @@ Itt láthatjuk, hogy a \lstinline{NOT_PRIME} makró nincs használatban. Ha megn
 \end{figure}
 
 
-\subsubsection{Példa: Nem biztonságos \lstinline{os} hívás diagnosztika}
+\subsubsection{Példa: Nem biztonságos 'os' hívás diagnosztika}
 
-\lstset{caption={Nem biztonságos \lstinline{os} hívást szemléltető kód}, label=src:erlang} 
+\lstset{caption={Nem biztonságos \lstinline{os} hívást szemléltető kód}, label=src:erlang0unsafeOSExample} 
 \begin{lstlisting}[language={Erlang}] 
 -module(show).
 -export([safe_os_call/0, unsafe_os_call/1]).
@@ -208,7 +208,7 @@ unsafe_os_call(A) ->
     os:cmd(A).
 \end{lstlisting}
 
-A fenti forrásban ötödik sorban lévő \lstinline{os:cmd} hívást nem tekintjük veszélyforrásnak, hiszen a fejlesztő maga paraméterezi fel. Azonban hetedik sorban kezdődő \lstinline{unsafe_os_call} definíciót sérülékenységi pontnak tekintjük, hiszen paramétere ismeretlen helyről származik \cite{refactorerlSecurity}.
+A fenti \ref{src:erlang0unsafeOSExample} forrás ötödik sorában lévő \lstinline{os:cmd} hívást nem tekintjük veszélyforrásnak, hiszen a fejlesztő maga paraméterezi fel. Azonban hetedik sorban kezdődő \lstinline{unsafe_os_call} definíciót sérülékenységi pontnak tekintjük, hiszen paramétere ismeretlen helyről származik \cite{refactorerlSecurity}.
 
 Ennek megfelőlen a \ref{fig:unsafe_os_call_vscode} ábrán láthatjuk is, hogy a szerkesztő program figyelmeztetést is adott a szóbanforgó kódrészletre. 
 
@@ -238,7 +238,7 @@ A kódakciók, avagy angolul \textit{Code Actions} a fejlesztői környezetben m
 \end{itemize}
 
 
-Ugyan a fent felsorolt funkcionalitások az Erlang LS felületéről indulnak, azonban sajnos a \textit{Language Server Protocol} limitációi miatt, ezen funkciók, lekérdezések megjelenítésére nincsen lehetőség \cite{microsoftLSp}. Ezen limitációk áthidalására készült a RefactorErl Visualiser bővítmény. A lekérdezések eredményének megjelenítéséről gráf rajzolása esetében \ref{sectionDepGraph} fejezetben, míg a Reach, Origin és függvények hivatkozás esetében a \ref{sectionVariable} fejezetben olvashatunk.
+Ugyan a fent felsorolt funkcionalitások az Erlang LS felületéről indulnak, azonban sajnos a \textit{Language Server Protocol} limitációi miatt, ezen funkciók, lekérdezések megjelenítésére nincsen lehetőség \cite{microsoftLSp}. Ezen limitációk áthidalására készült a RefactorErl Visualiser bővítmény. A lekérdezések eredményének megjelenítéséről gráf rajzolása esetében \ref{sectionDepGraph} fejezetben, míg a Reach, Origin és függvények hivatkozás megjelenítése esetében a \ref{sectionVariable} fejezetben olvashatunk.
 
 \begin{figure}[H]
   \centering
@@ -306,7 +306,7 @@ Ez után a \textit{Command Palette} helyén megjelenik egy beviteli mező, ahova
   \label{fig:custom_query_input}
 \end{figure}
 
-A lekérdezést az \textit{Esc} billenytű lenyomásával megszakíthatjuk, azt \textit{Enter} segítségével pedig elküldhetjük azt. A lekérdezés állapotáról a jobb alsó sarokban kaphatunk információt. (lásd: \ref{fig:notifications} ábra)
+A lekérdezést az \textit{Esc} billenytű lenyomásával megszakíthatjuk, az \textit{Enter} segítségével pedig elküldhetjük. A lekérdezés állapotáról a jobb alsó sarokban kaphatunk információt. (lásd: \ref{fig:notifications} ábra)
 
 \begin{figure}[H]
   \centering
@@ -339,17 +339,17 @@ A nézet előhozásához a \textit{Command Palette}-n írjuk be, hogy: \textit{D
 Ammenyiben a nézetből szeretnénk generálni a gráfot, úgy az alábbi lehetősgek állnak rendelkezésre az oldalsó részen: (bővebben a Wiki oldalon olvashatunk a szűrési opciókról (Filtering options) \cite{referlWikiDependency})
 
 \begin{itemize}
-    \item \textbf{Level}: típusa, lehet \textit{Function} (függvény) vagy \textit{Module} (modul). Azt tudjuk meghatározni, hogy milyen szinten legyen a gráf generálva
+    \item \textbf{Level}: típusa, lehet \textit{Function} (függvény) vagy \textit{Module} (modul). Azt tudjuk meghatározni, hogy milyen szinten legyen a gráf generálva.
      \item \textbf{Type}: típusa, lehet \textit{Whole graph} (teljes gráf) vagy \textit{Cyclic sub-graph} (ciklikus részgráf).
-     \item \textbf{Starting functions/modules}: megadhatjuk, hogy mely függvények vagy modulok legyenek a kezdő pontok. Ha többet szeretnénk megadni, akkor pontos vesszővel válasszuk el.
-     \item \textbf{Connection functions/modules}: megadhatjuk, hogy mely függvények vagy modulok legyenek a kapcsolódási pontok. Ha többet szeretnénk megadni, akkor pontos vesszővel válasszuk el.
-     \item \textbf{Excluded functions/modules}: megadhatjuk, hogy mely függvények vagy modulok legyenek kizárva. Ha többet szeretnénk megadni, akkor pontos vesszővel válasszuk el.
+     \item \textbf{Starting functions/modules}: megadhatjuk, hogy mely függvények vagy modulok legyenek a kezdő pontok. Ha többet szeretnénk megadni, akkor pontosvesszővel válasszuk el.
+     \item \textbf{Connection functions/modules}: megadhatjuk, hogy mely függvények vagy modulok legyenek a kapcsolódási pontok. Ha többet szeretnénk megadni, akkor pontosvesszővel válasszuk el.
+     \item \textbf{Excluded functions/modules}: megadhatjuk, hogy mely függvények vagy modulok legyenek kizárva. Ha többet szeretnénk megadni, akkor pontosvesszővel válasszuk el.
      \item \textbf{Excluded OTP}: Amennyiben ezt bejelöljük, úgy az OTP függvényei, moduljai ki lesznek zárva a gráfból.
-     \item \textbf{Excluded libraries}: megadhatjuk, hogy mely könyvtárak legyenek kizárva. Ha többet szeretnénk megadni, akkor pontos vesszővel válasszuk el.
+     \item \textbf{Excluded libraries}: megadhatjuk, hogy mely könyvtárak legyenek kizárva. Ha többet szeretnénk megadni, akkor pontosvesszővel válasszuk el.
      \item \textbf{Output format}: kimeneti formátum, lehet \textit{Plain textual} (szöveges reprezentáció) vagy \textit{SVG} 
 \end{itemize}
 
-Végül rendelkezésre áll egy \textit{Generate} és egy \textit{Clear} feliratú gomb. A feladatuk rendere a gráf generálása, létrehozása illetve a generált gráf törlése. Szöveges reprezentáció esetén az eredmény jobb oldalt a nagyobb munkaterületen jelenik meg. SVG opció esetén egy új fülön fog megjelenni, s a munkaterületen egy hivatkozás, gomb fog megjelenni. (lásd: \ref{fig:depGraphSVG} ábra)
+Végül rendelkezésre áll egy \textit{Generate} és egy \textit{Clear} feliratú gomb. A feladatuk rendre a gráf generálása, létrehozása illetve a generált gráf törlése. Szöveges reprezentáció esetén az eredmény jobb oldalt a nagyobb munkaterületen jelenik meg. SVG opció esetén egy új fülön fog megjelenni, s a munkaterületen egy hivatkozás, gomb fog megjelenni. (lásd: \ref{fig:depGraphSVG} ábra)
 
 \begin{figure}[H]
   \centering
@@ -376,7 +376,7 @@ Fő panelek áttekintése:
 
 \begin{itemize}
     \item \textbf{RefactorErl Dashboard\footnote{Vezérlőpult}} Itt láthatjuk a RefactorErl node állapotát, illetve néhány vezérlő gomb segítségével ellenőrizhetjük a kapcsolatot, szinkronizálhatjuk az adatbázist, illetve lefuttathatjuk  a dinamikus elemzést vagy éppen törölhetjük annak erdeményét.
-    \item \textbf{Built-In Query} Ezen panelen fognak megjelenni a beépített lekérdezések eredményei, mint például: \textit{Variable Reach} \textit{Variable Origin}, vagyis változó lehetséges értékei és dinamikus függvény hivatkozások eredményei.
+    \item \textbf{Built-In Query} Ezen panelen fognak megjelenni a beépített lekérdezések eredményei, mint például: \textit{Variable Reach} \textit{Variable Origin} és dinamikus függvény hivatkozások eredményei.
     \item \textbf{Custom Query} Ebben a nézetben jelennek a meg a \textit{Command Palette}-n beírt egyedi lekérdezések eredményei.
 \end{itemize}
 
@@ -420,9 +420,9 @@ A \textit{Clear dynamic analysis} gomb megnyomásával a már elvégzett dinamik
 
 \subsubsection{Built-In Query megjelenítője} \label{sectionVariable}
 
-A második panelen a beépített lekérdezések megjelenítését találhatjuk. Amennyiban az Erlang LS-ből kódakciók segítségével indítjuk a lekérdezést, abban az esetben ebben a középső\footnote{A panelek tetszőlgesen átrendezhetőek, de az ábrán és alapértelmezetten középső} panelben jelenik meg az eredény, egy \textit{fa szerkezetű listában}. Ha a listában egy értékere kattintunk, akkor bővítmény az adott eredményre visz, amennyiben van pozíció adat hozzá a RefactorErl adatbázisban.
+A második panelen a beépített lekérdezések megjelenítését találhatjuk. Amennyiban az Erlang LS-ből kódakciók segítségével indítjuk a lekérdezést, abban az esetben ebben a középső\footnote{A panelek tetszőlgesen átrendezhetőek, de az ábrán és alapértelmezetten középső} panelben jelenik meg az eredmény, egy \textit{fa szerkezetű listában}. Ha a listában egy értékere kattintunk, akkor bővítmény az adott eredményre visz, amennyiben van pozíció adat hozzá a RefactorErl adatbázisban.
 
-Itt jelennek meg az alábbi beépített lekérdezések
+\noindent Itt jelennek meg az alábbi beépített lekérdezések
 \begin{itemize}
     \item Variable Origin
     \item Variable Reach
@@ -448,7 +448,7 @@ Az egyedi lekérdetések megjelenítője nagyon hasonló a beépítettéhez. Itt
   \label{fig:custom_query_view}
 \end{figure}
 
-Egyedi lekérdezések esetében gyakrabban belefuthatunk a pozíció nélküli eredménybe. (lásd: \ref{fig:nopos_res} ábra) Az ilyen eredmény mellett látjuk a \textit{No source file} alcímet, ami ezt jelzi nekünk. Erre való kattintás esetén hiba üzenet jelzi, hogy nem tudunk semmilyen pozícióra menni. Ez olyankor fordulhat elő, amikor meghívunk egy olyan függvényt, ami ugyan egy másik modulban jelene van, de annak a modulnak a forrása nincsen betöltve a RefactorErl-be, így nem tudunk hozzá lokációt adni.
+Egyedi lekérdezések esetében gyakrabban belefuthatunk a pozíció nélküli eredménybe. (lásd: \ref{fig:nopos_res} ábra) Az ilyen eredmény mellett látjuk a \textit{No source file} alcímet, ami ezt jelzi nekünk. Erre való kattintás esetén hiba üzenet jelzi, hogy nem tudunk semmilyen pozícióra menni. Ez például olyankor fordulhat elő, amikor meghívunk egy olyan függvényt, ami ugyan egy másik modulban jelene van, de annak a modulnak a forrása nincsen betöltve a RefactorErl-be, így nem tudunk hozzá lokációt adni.
 
 Ammenyiben a pozíció adat rendelkezésre áll, úgy a megfelelő helyre visz a bővítmény. (lásd: \ref{fig:code_highligh} ábra)
 
@@ -474,7 +474,7 @@ Ammenyiben a pozíció adat rendelkezésre áll, úgy a megfelelő helyre visz a
 Ez esetben győződjünk meg arról, hogy az Erlang node, amin a RefactorErl fut, az elérhető-e. Ehhez használhatjuk a \lstinline{epmd -names} parancsot, ami listázza a futó Erlang node-okat.
 Valami hasonló kimenetet kell várnunk, mint a \ref{epmdSample} forrásban, amennyiben fut a RefactorErl. Itt a node nevét kell látnunk.
 
-\lstset{caption=Erlang Port Mapper Deamon (epmd) példa kimenete, label=src:sh}  \label{epmdSample}
+\lstset{caption=Erlang Port Mapper Deamon (epmd) példa kimenete, label=epmdSample}
 \begin{lstlisting}[language={sh}] 
 fikorobert@fikoMac ~> epmd -names
 epmd: up and running on port 4369 with data:
