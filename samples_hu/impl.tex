@@ -204,7 +204,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     
     
-    \item \lstinline{-spec variable_orgin(uri(), {number(), number()}) -> error | ok.}
+    \item \lstinline|-spec variable_orgin(uri(), {number(), number()} ) -> error |\lstinline{| ok.} \lstinline|}|
     \begin{itemize}
             \item \textbf{Bemenet}: Első paraméter az útvonal binárosan, a második párban rendre sor és oszlop információ, az adott változóról.
             \item \textbf{Kimenet}: \lstinline{error}, ammenyiben valami hiba történt, \lstinline{ok} ammenyiben mindben rendben.
@@ -224,7 +224,7 @@ A diagnosztikai modul nagyban támaszkodik a segéd moduljára, a \lstinline{els
     
     \item \lstinline{-spec dependency_graph(string(), func | mod) -> error | ok.}
     \begin{itemize}
-            \item \textbf{Bemenet}: Az első paraméter a függvény vagy modul nevét tartalmazza rendre \lstinline{<modul_neve>:<függvény_neve>/<aritás>}, illetve \lstinline{<module_neve>} formában.
+            \item \textbf{Bemenet}: Az első paraméter a függvény vagy modul nevét tartalmazza rendre \lstinline{<modul_neve>:<fuggveny_neve>/<aritas>}, illetve \lstinline{<module_neve>} formában.
             \item \textbf{Kimenet}: lstinline{error}, ammenyiben valami hiba történt, \lstinline{ok} ammenyiben mindben rendben.
             \item \textbf{Leírás}: A RefactorErl node felé intézett RPC híváson keresztül kiszámolja egy függvény vagy modul függőségi gráfját, amit Web Socketen keresztül megküldd, a Visualiser bővítmény felé.
         \end{itemize}
